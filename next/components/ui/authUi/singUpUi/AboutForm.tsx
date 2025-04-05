@@ -1,116 +1,149 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
 import { useProgress } from '@/(site)/context/ProgressContext';
+import BtnBack from './BtnBack';
+import { z } from 'zod';
+
+const schema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  birthDay: z.string().min(1, 'Day is required'),
+  birthMonth: z.string().min(1, 'Month is required'),
+  birthYear: z.string().min(4, 'Year is required'),
+  gender: z.string().min(1, 'Please select a gender'),
+});
+
+
+
+type FormData = z.infer<typeof schema>;
 
 export default function AboutPage() {
   const router = useRouter();
-	const { setStep } = useProgress();
-  const [name, setName] = useState('');
-  const [birthDay, setBirthDay] = useState('');
-  const [birthMonth, setBirthMonth] = useState('');
-  const [birthYear, setBirthYear] = useState('');
-  const [gender, setGender] = useState('');
-  const [progressWidth, setProgressWidth] = useState("w-0");
+  const { setStep } = useProgress();
+  const [progressWidth, setProgressWidth] = useState('w-0');
 
-  const isValid = name.trim().length > 0;
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isValid }
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: 'onChange'
+  });
+
+  const gender = watch('gender');
 
   useEffect(() => {
-		setStep(2);
+    setStep(2);
     const timer = setTimeout(() => {
-      setProgressWidth("w-2/3");
+      setProgressWidth('w-2/3');
     }, 100);
-
     return () => clearTimeout(timer);
   }, []);
 
-  const handleNext = () => {
-    if (isValid) {
-      console.log({ name, birthDay, birthMonth, birthYear, gender });
-      router.push('/sign-up/finish');
-    }
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    router.push('/sign-up/finish');
   };
 
   return (
     <div className="flex justify-center bg-black text-white min-h-screen">
-      <div className="w-full max-w-md px-8 py-4">
+      <div className="w-full max-w-md px-8 py-4 relative">
+        <BtnBack className="absolute top-7 left-0" />
 
         <p className="text-base text-gray-400 mb-1">Step 2 of 3</p>
         <h2 className="text-[15px] font-bold mb-4">Tell us about yourself</h2>
 
-        <label className="text-sm font-semibold block mb-2">Name</label>
-        <input
-          type="text"
-          className="w-full bg-black border border-gray-600 text-white p-3 rounded-md mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
-          placeholder="This name will show on your profile"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <label className="text-sm font-semibold block mb-2">Date of Birth</label>
-        <div className="flex gap-2 mb-4">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <label className="text-sm font-semibold block mb-2">Name</label>
           <input
             type="text"
-            placeholder="DD"
-            className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white"
-            value={birthDay}
-            onChange={(e) => setBirthDay(e.target.value)}
+            {...register('name')}
+            className="w-full bg-black border border-gray-600 text-white p-3 rounded-md mb-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="This name will show on your profile"
           />
-          <select
-            className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white"
-            value={birthMonth}
-            onChange={(e) => setBirthMonth(e.target.value)}
-          >
-            <option value="">Month</option>
-            {[
-              'January', 'February', 'March', 'April', 'May', 'June',
-              'July', 'August', 'September', 'October', 'November', 'December'
-            ].map((month, index) => (
-              <option key={index} value={month}>{month}</option>
-            ))}
-          </select>
-          <input
-            type="text"
-            placeholder="YYYY"
-            className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white"
-            value={birthYear}
-            onChange={(e) => setBirthYear(e.target.value)}
-          />
-        </div>
+          {errors.name && <p className="text-red-500 text-sm mb-4">{errors.name.message}</p>}
 
-        <label className="text-sm font-semibold block mb-2">Gender</label>
-        <div className="grid grid-cols-2 gap-2 mb-6">
-          {['Male', 'Female', 'Non-binary', 'Other', 'Prefer not to say'].map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => setGender(option)}
-              className={clsx(
-                'border rounded-md px-4 py-2 text-sm',
-                gender === option
-                  ? 'border-green-500 text-white bg-green-600'
-                  : 'border-gray-600 text-gray-300'
-              )}
+          <label className="text-sm font-semibold block mb-2">Date of Birth</label>
+          <div className="flex gap-2 mb-1">
+            <input
+              type="number"
+              placeholder="DD"
+              {...register('birthDay')}
+							className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+				
+							onInput={(e: any) => {
+								const value = parseInt(e.target.value, 10);
+								if (value < 1) e.target.value = 1;
+								else if (value > 31) e.target.value = 1;						
+							}}	/>
+            <select
+							defaultValue=""
+              {...register('birthMonth')}
+              className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white"
             >
-              {option}
-            </button>
-          ))}
-        </div>
-
-        <button
-          disabled={!isValid}
-          onClick={handleNext}
-          className={clsx(
-            'w-full text-center font-bold py-3 px-4 rounded-full transition',
-            isValid
-              ? 'bg-green-500 hover:bg-green-600 text-black'
-              : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+              <option value="" disabled>Month</option>
+              {[
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+              ].map((month, index) => (
+                <option key={index} value={month}>{month}</option>
+              ))}
+            </select>
+            <input
+              type="number"
+              placeholder="YYYY"
+							maxLength={4}
+              {...register('birthYear')}
+							className="w-1/3 p-3 rounded-md bg-black border border-gray-600 text-white appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+							onInput={(e: any) => {
+								if (e.target.value.length > 4) e.target.value = e.target.value.slice(0, 4);
+							}}/>
+          </div>
+          {(errors.birthDay || errors.birthMonth || errors.birthYear) && (
+            <p className="text-red-500 text-sm mb-4">
+              {errors.birthDay?.message || errors.birthMonth?.message || errors.birthYear?.message}
+            </p>
           )}
-        >
-          Next
-        </button>
+
+          <label className="text-sm font-semibold block mb-2">Gender</label>
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            {['Male', 'Female', 'Non-binary', 'Other', 'Prefer not to say'].map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setValue('gender', option, { shouldValidate: true })}
+                className={clsx(
+                  'border rounded-md px-4 py-2 text-sm',
+                  gender === option
+                    ? 'border-green-500 text-white bg-green-600'
+                    : 'border-gray-600 text-gray-300'
+                )}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+          {errors.gender && <p className="text-red-500 text-sm mb-4">{errors.gender.message}</p>}
+
+          <button
+            type="submit"
+            className={clsx(
+              'w-full text-center font-bold py-3 px-4 rounded-full transition',
+              isValid
+                ? 'bg-green-500 hover:bg-green-600 text-black'
+                : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+            )}
+          >
+            Next
+          </button>
+        </form>
 
         <p className="text-xs text-gray-500 mt-6 text-center">
           This site is protected by reCAPTCHA and the Google{' '}

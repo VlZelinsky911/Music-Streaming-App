@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { CheckCircle, Circle } from 'lucide-react';
+import { CheckCircle, Circle, Link } from 'lucide-react';
 import clsx from 'clsx';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
+import BtnBack from './BtnBack';
+
 
 export default function PasswordForm() {
 	const router = useRouter();
@@ -32,9 +34,11 @@ export default function PasswordForm() {
   }, []);
 
   return (
-    <div className="text-white text-left">
+    <div className="text-white text-left relative">
+			 
+			<BtnBack className="absolute -left-8 top-3 text-gray-400 hover:text-white"/>
 
-      <p className="text-sm text-gray-400 mb-2">Step 1 of 3</p>
+      <p className="text-base text-gray-400 mb-1">Step 1 of 3</p>
       <h2 className="text-[15px] font-bold mb-4">Create a password</h2>
 
       <label className="text-sm font-semibold block mb-2">Password</label>
