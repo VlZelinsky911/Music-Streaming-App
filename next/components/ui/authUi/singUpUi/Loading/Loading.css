@@ -1,0 +1,46 @@
+@keyframes dot1 {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes dot2 {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes dot3 {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.dot {
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.animate-dot1 {
+  animation-name: dot1;
+  animation-delay: 0s;
+}
+
+.animate-dot2 {
+  animation-name: dot2;
+  animation-delay: 0.2s;
+}
+
+.animate-dot3 {
+  animation-name: dot3;
+  animation-delay: 0.4s;
+}

@@ -1,6 +1,4 @@
 import "../globals.css";
-import { ProgressProvider } from "./context/ProgressContext";
-
 
 export const metadata = {
   title: 'Spotify Clone',
@@ -18,9 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-			<ProgressProvider>
         {children}
-			</ProgressProvider>
       </body>
     </html>
   );
