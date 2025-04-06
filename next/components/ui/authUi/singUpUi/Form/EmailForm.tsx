@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import * as z from 'zod';
-import ProgressBar from './headerRegist';
 
 const schema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
