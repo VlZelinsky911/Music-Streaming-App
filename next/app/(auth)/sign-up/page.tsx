@@ -1,6 +1,8 @@
 import Link from "next/link";
 import EmailForm from "../../../components/ui/authUi/singUpUi/Form/EmailForm";
 import TermsOfService from "../../../components/ui/legal/TermsOfService";
+import SocialButton from "../../../components/ui/authUi/socialButton";
+import Image from "next/image";
 
 export const metadata = {
   title: "Sign Up - Spotify Clone",
@@ -14,10 +16,12 @@ export default function SignUpPage() {
     <div className="flex min-h-screen items-center justify-center bg-black text-white">
       <div className="w-full max-w-md p-8 bg-black text-center">
         <header>
-          <img
+          <Image
             src="spoti_logo_white.svg"
             alt="Spotify Logo"
             className="mx-auto w-12 mb-6"
+						width={48}
+						height={48}
           />
           <h1 className="mx-auto w-[320px] text-2xl font-bold mb-15">
             Sign up to start listening
@@ -34,30 +38,8 @@ export default function SignUpPage() {
             <span className="mx-4 text-gray-400">or</span>
             <hr className="flex-grow border-gray-600" />
           </div>
-          <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full mb-3 relative">
-            <img
-              src="/google_icon.svg"
-              alt="Google"
-              className="w-6 h-6 mr-2 absolute left-6"
-            />
-            Sign up with Google
-          </button>
-          <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full mb-3 relative">
-            <img
-              src="/facebook_icon.svg"
-              alt="Facebook"
-              className="w-6 h-6 mr-2 absolute left-6"
-            />
-            Sign up with Facebook
-          </button>
-          <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full relative">
-            <img
-              src="apple_icon.svg"
-              alt="Apple"
-              className="w-6 h-6 mr-2 absolute left-6"
-            />
-            Sign in with Apple
-          </button>
+
+					<SocialButton />
 
           <p className="text-sm text-gray-400 mt-6">
             Already have an account?{" "}
