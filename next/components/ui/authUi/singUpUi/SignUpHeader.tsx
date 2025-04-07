@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -33,7 +34,7 @@ const SignUpHeader: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pt-6 bg-black">
-      <img
+      <Image
         src="/spoti_logo_white.svg"
         alt="Spotify Logo"
         width={50}

@@ -9,7 +9,8 @@ import { z } from "zod";
 import BtnBack from "../BtnBack";
 import CustomCheckbox from "../CustomCheckbox";
 import TermsOfService from "../../../legal/TermsOfService";
-import Loading from "../Loading/Loading";
+import Loading from "../../../loading/Loading";
+import toast from "react-hot-toast";
 
 const schema = z.object({
   newsOptIn: z.boolean().optional(),
@@ -50,11 +51,7 @@ export default function TermsPage() {
   const onSubmit = (data: FormData) => {
 		setIsLoading(true);
     console.log(data);
-
-    setTimeout(() => {
-      setIsLoading(false);
-      router.push("/");
-    }, 2000);
+		toast("🎧 Almost there! Check your email to confirm and start the vibe ✨");
   };
 
   return (
