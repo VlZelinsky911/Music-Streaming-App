@@ -25,7 +25,7 @@ type FormData = z.infer<typeof schema>;
 export default function TermsPage() {
   const router = useRouter();
   const [progressWidth, setProgressWidth] = useState("w-0");
-	const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -48,10 +48,60 @@ export default function TermsPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const onSubmit = (data: FormData) => {
-		setIsLoading(true);
-    console.log(data);
-		toast("🎧 Almost there! Check your email to confirm and start the vibe ✨");
+  const onSubmit = async (data: FormData) => {
+    const email = localStorage.getItem("signup_email");
+    const password = localStorage.getItem("signup_password");
+    const username = localStorage.getItem("signup_username");
+    const birthday = localStorage.getItem("signup_birthday");
+    const gender = localStorage.getItem("signup_gender");
+
+
+    if (!email || !password || !username || !birthday || !gender) {
+      toast.error("Data not found. Please start registration again.");
+      router.push("/sign-up");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:1337/api/auth/local/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password,
+          birthday: birthday,
+          gender: gender,
+          newsOptIn: data.newsOptIn,
+          marketingOptIn: data.marketingOptIn,
+          agreeTerms: data.agreeTerms,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem("auth_token", result.jwt);
+        toast.success("Registration successful!");
+        router.push("/");
+
+        localStorage.removeItem("signup_email");
+        localStorage.removeItem("signup_password");
+        localStorage.removeItem("signup_name");
+        localStorage.removeItem("signup_birthday");
+        localStorage.removeItem("signup_gender");
+      } else {
+        toast.error(result.error?.message || "Registration failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+
+    toast("🎧 Almost there! Check your email to confirm and start the vibe ✨");
   };
 
   return (
@@ -111,23 +161,18 @@ export default function TermsPage() {
             .
           </p>
 
-					<button
+          <button
             type="submit"
             className={clsx(
               "w-full text-center font-bold py-3 px-4 rounded-full transition",
               isValid
                 ? "bg-green-500 hover:bg-green-600 text-black"
-                : "bg-gray-700 text-gray-400 cursor-not-allowed",
+                : "bg-gray-700 text-gray-400 cursor-not-allowed"
             )}
             disabled={isLoading}
           >
-            {isLoading ? (
-							<Loading/>
-            ) : (
-              "Sign up"
-            )}
+            {isLoading ? <Loading /> : "Sign up"}
           </button>
-
         </form>
         <TermsOfService />
       </div>

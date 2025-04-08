@@ -22,7 +22,7 @@ export default function EmailForm() {
   });
 
   const onSubmit = (data: FormData) => {
-    console.log('Email valid:', data.email);
+		localStorage.setItem("signup_email", data.email);
     router.push('/sign-up/password');
   };
 
