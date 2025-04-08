@@ -7,7 +7,6 @@ import * as z from "zod";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { log } from "console";
 import Loading from "../../../loading/Loading";
 
 const schema = z.object({
@@ -19,8 +18,6 @@ type FormData = z.infer<typeof schema>;
 
 export default function EmailForm() {
   const router = useRouter();
-	const [email, setEmail] = useState('');
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +30,6 @@ export default function EmailForm() {
   });
 
   const onSubmit = async (data: FormData) => {
-		console.log(data);
 		setIsLoading(true);
 
     const res = await fetch('/api/auth/login', {
@@ -73,9 +69,7 @@ export default function EmailForm() {
         <input
           type={showPassword ? "password" : "text"}
           className="w-full bg-black border border-gray-600 text-white p-3 pr-10 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-          value={password}
 					{...register("password")}
-          onChange={(e) => setPassword(e.target.value)}
           placeholder="Enter your password"
         />
         <button

@@ -10,10 +10,11 @@ import { z } from "zod";
 import { FiChevronDown } from "react-icons/fi";
 import TermsOfService from "../../../legal/TermsOfService";
 
+
 const currentYear = new Date().getFullYear();
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
+  username: z.string().min(1, "Name is required"),
   birthDay: z.string().min(1, "Day is required"),
   birthMonth: z.string().min(1, "Month is required"),
   birthYear: z
@@ -34,6 +35,7 @@ type FormData = z.infer<typeof schema>;
 export default function AboutPage() {
   const router = useRouter();
   const [progressWidth, setProgressWidth] = useState("w-0");
+	const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -56,7 +58,10 @@ export default function AboutPage() {
   }, []);
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    localStorage.setItem("signup_username", data.username);
+		localStorage.setItem("signup_birthday", `${data.birthDay}/${data.birthMonth}/${data.birthYear}`);
+		localStorage.setItem("signup_gender", data.gender);
+		
     router.push("/sign-up/register");
   };
 
@@ -72,12 +77,12 @@ export default function AboutPage() {
           <label className="text-sm font-semibold block mb-2">Name</label>
           <input
             type="text"
-            {...register("name")}
+            {...register("username")}
             className="w-full bg-black border border-gray-600 text-white p-3 rounded-md mb-1 focus:outline-none focus:ring-2 focus:ring-green-500"
             placeholder="This name will show on your profile"
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mb-4">{errors.name.message}</p>
+          {errors.username && (
+            <p className="text-red-500 text-sm mb-4">{errors.username.message}</p>
           )}
 
           <label className="text-sm font-semibold block mb-2">
