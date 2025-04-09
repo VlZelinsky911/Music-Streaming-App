@@ -52,11 +52,9 @@ export default function TermsPage() {
     const email = localStorage.getItem("signup_email");
     const password = localStorage.getItem("signup_password");
     const username = localStorage.getItem("signup_username");
-    const birthday = localStorage.getItem("signup_birthday");
-    const gender = localStorage.getItem("signup_gender");
 
 
-    if (!email || !password || !username || !birthday || !gender) {
+    if (!email || !password || !username) {
       toast.error("Data not found. Please start registration again.");
       router.push("/sign-up");
       return;
@@ -65,18 +63,13 @@ export default function TermsPage() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:1337/api/auth/local/register", {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email,
           username: username,
           password: password,
-          birthday: birthday,
-          gender: gender,
-          newsOptIn: data.newsOptIn,
-          marketingOptIn: data.marketingOptIn,
-          agreeTerms: data.agreeTerms,
         }),
       });
 
@@ -90,8 +83,6 @@ export default function TermsPage() {
         localStorage.removeItem("signup_email");
         localStorage.removeItem("signup_password");
         localStorage.removeItem("signup_name");
-        localStorage.removeItem("signup_birthday");
-        localStorage.removeItem("signup_gender");
       } else {
         toast.error(result.error?.message || "Registration failed");
       }
