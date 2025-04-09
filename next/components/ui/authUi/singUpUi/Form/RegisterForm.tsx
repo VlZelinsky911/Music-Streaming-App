@@ -77,8 +77,12 @@ export default function TermsPage() {
 
       if (res.ok) {
         localStorage.setItem("auth_token", result.jwt);
-        toast.success("Registration successful!");
-        router.push("/");
+       
+				toast("🎧 Almost there! Check your email to confirm and start the vibe ✨");
+				toast.success("Registration successful!");
+				setTimeout(() => {
+					router.push("/sign-in");
+				}, 3000); 
 
         localStorage.removeItem("signup_email");
         localStorage.removeItem("signup_password");
@@ -91,8 +95,6 @@ export default function TermsPage() {
     } finally {
       setIsLoading(false);
     }
-
-    toast("🎧 Almost there! Check your email to confirm and start the vibe ✨");
   };
 
   return (
