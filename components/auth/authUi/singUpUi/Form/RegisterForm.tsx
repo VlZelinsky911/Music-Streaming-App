@@ -11,6 +11,7 @@ import CustomCheckbox from "../CustomCheckbox";
 import TermsOfService from "../../../legal/TermsOfService";
 import Loading from "../../../loading/Loading";
 import toast from "react-hot-toast";
+import { supabase } from "../../../../../services/supabaseClient";
 
 const schema = z.object({
   newsOptIn: z.boolean().optional(),
@@ -48,29 +49,50 @@ export default function TermsPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const onSubmit = async (data: FormData) => {
-    const email = localStorage.getItem("signup_email");
-    const password = localStorage.getItem("signup_password");
-    const username = localStorage.getItem("signup_username");
-
-
-    if (!email || !password || !username) {
-      toast.error("Data not found. Please start registration again.");
-      router.push("/sign-up");
-      return;
-    }
-
-    setIsLoading(true);
-
-				toast("🎧 Registration successful! Check your email to confirm and start the vibe ✨");
-				setTimeout(() => {
-					router.push("/sign-in");
-				}, 3000); 
-
-        localStorage.removeItem("signup_email");
-        localStorage.removeItem("signup_password");
-        localStorage.removeItem("signup_name");
-  };
+	const onSubmit = async (data: FormData) => {
+		const fields = ["signup_email", "signup_password", "signup_username", "signup_birthday", "signup_gender"];
+		const [email, password, username, birthDate, gender] = fields.map((key) => localStorage.getItem(key));
+	
+		if (!email || !password || !username || !birthDate || !gender) {
+			toast.error("No data found. Start registration again.");
+			router.push("/sign-up");
+			return;
+		}
+	
+		setIsLoading(true);
+	
+		const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${window.location.origin}/sign-in`,
+				data: {
+					username,
+					birth_date: birthDate,
+					gender,
+					news_opt_in: data.newsOptIn ?? false,
+					marketing_opt_in: data.marketingOptIn ?? false,
+					agree_terms: data.agreeTerms,
+				},
+			},
+		});
+		
+	
+		if (signUpError || !signUpData?.user?.id) {
+			toast.error(signUpError?.message || "Something went wrong. Try again.");
+			setIsLoading(false);
+			return;
+		}
+	
+		fields.forEach((key) => localStorage.removeItem(key));
+		
+		setTimeout(() => {
+			toast.success("🎧 Registration successful! Confirm email to get started 🎉");
+			router.push("/sign-in");
+		}, 5000);  
+	};
+	
+	
 
   return (
     <div className="flex justify-center bg-black text-white min-h-screen">
