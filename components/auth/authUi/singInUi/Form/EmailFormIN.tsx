@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Loading from "../../../loading/Loading";
+import { supabase } from "../../../../../services/supabaseClient";
+import useProfileSetupOnLogin from "../../../../../hooks/useProfileSetupOnLogin";
 
 const schema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -29,10 +31,27 @@ export default function EmailForm() {
     resolver: zodResolver(schema),
   });
 
-	const onSubmit = async (data: FormData) => {
-		console.log(data);
+	useProfileSetupOnLogin();
+
+	const onSubmit = async (formData: FormData) => {
 		setIsLoading(true);
-		};
+
+		const { email, password } = formData;
+		
+		const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      toast.error("Помилка входу: " + error.message);
+      setIsLoading(false);
+      return;
+    }
+
+    toast.success("Вітаємо! Ви успішно увійшли в акаунт.");
+    router.push("/");
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-left">
