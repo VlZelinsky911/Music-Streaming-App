@@ -32,7 +32,7 @@ const page = () => {
           </h3>
 
           <p className="text-sm text-gray-300 bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700">
-            Once confirmed, you'll be redirected to the login page where you can enter your credentials (username / password).
+            Once confirmed, you'll be redirected to the login page where you can enter your credentials (email / password).
           </p>
 
           <p className="text-sm text-gray-300 bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700 mb-6">

@@ -1,17 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { supabase } from "../../../services/supabaseClient";
 
 export default function SocialButton() {
-  const handleGoogleLogin = () => {
-		window.location.href = "http://localhost:1337/api/connect/google";
-	};	
+  const router = useRouter();
+
+	const handleGoogleSignIn = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/callback`, 
+      },
+    });
+
+    if (error) console.error("Google sign-in error:", error.message);
+  };
+
 
   return (
     <>
       <button
-        onClick={handleGoogleLogin}
         className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full mb-3 relative"
+				onClick={handleGoogleSignIn}
       >
         <Image
           src="/google_icon.svg"
