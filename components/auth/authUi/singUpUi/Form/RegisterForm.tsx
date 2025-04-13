@@ -88,7 +88,7 @@ export default function TermsPage() {
 		
 		setTimeout(() => {
 			toast.success("🎧 Registration successful! Confirm email to get started 🎉");
-			router.push("/sign-in");
+			router.push("/sign-in/email-tutorial");
 		}, 5000);  
 	};
 	
