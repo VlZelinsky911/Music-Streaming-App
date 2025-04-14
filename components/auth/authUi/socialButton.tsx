@@ -18,6 +18,15 @@ export default function SocialButton() {
     if (error) console.error("Google sign-in error:", error.message);
   };
 
+	const handleFacebookSignIn = async () => {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider: 'facebook',
+			options: {
+				redirectTo: `${window.location.origin}/callback`,
+			},
+		})
+		if(error) console.error("Facebook sign-in error:", error.message);
+	}
 
   return (
     <>
@@ -35,15 +44,18 @@ export default function SocialButton() {
         Sign up with Google
       </button>
 
-      <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full mb-3 relative">
-        <Image
-          src="/facebook_icon.svg"
-          alt="Facebook"
-          className="w-6 h-6 mr-2 absolute left-6"
-          width={24}
-          height={24}
-        />
-        Sign up with Facebook
+      <button 
+        className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full mb-3 relative"
+        onClick={handleFacebookSignIn}
+				>
+					<Image
+						src="/facebook_icon.svg"
+						alt="Facebook"
+						className="w-6 h-6 mr-2 absolute left-6"
+						width={24}
+						height={24}
+					/>
+        	Sign up with Facebook
       </button>
 
       <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full relative">
