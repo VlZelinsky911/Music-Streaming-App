@@ -1,4 +1,3 @@
-// app/auth/callback.tsx
 "use client";
 
 import { useEffect } from "react";
