@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../../services/supabaseClient";
+import { useEffect } from "react";
+import ToasterCustom from "../ToasterCustom/ToasterCustom";
+import toast from "react-hot-toast";
 
 export default function SocialButton() {
   const router = useRouter();
@@ -26,6 +29,13 @@ export default function SocialButton() {
 			},
 		})
 		if(error) console.error("Facebook sign-in error:", error.message);
+	}
+
+	const handleAppleSignIn = async () => {
+		toast.loading("Please wait...");
+			setTimeout(() => {
+				router.push("/legal/inProgress");	
+			},1000);
 	}
 
   return (
@@ -58,7 +68,10 @@ export default function SocialButton() {
         	Sign up with Facebook
       </button>
 
-      <button className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full relative">
+      <button 
+				className="w-full flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-full relative"
+				onClick={handleAppleSignIn}
+				>
         <Image
           src="/apple_icon.svg"
           alt="Apple"
