@@ -2,10 +2,10 @@ import RootLayout from "@/(site)/layout";
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: 'Зареєструватися - Spotify Clone',
-  description: 'Створіть акаунт, щоб почати слухати музику в Spotify Clone',
+  title: "Sign Up - Wavely",
+  description: "Create an account to start listening to music on Wavely",
   icons: {
-    icon: 'spoti_logo_title.svg',
+    icon: 'wavely_logo_title.svg',
   },
 };
 

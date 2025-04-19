@@ -5,10 +5,10 @@ import SocialButton from "../../../components/auth/authUi/socialButton";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Sign Up - Spotify Clone",
-  description: "Create an account to start listening to music on Spotify Clone",
+  title: "Sign Up - Wavely",
+  description: "Create an account to start listening to music on Wavely",
   icons: {
-    icon: "/spoti_logo_title.svg",
+    icon: "/wavely_logo_title.svg",
   },
 };
 export default function SignUpPage() {
@@ -17,8 +17,8 @@ export default function SignUpPage() {
       <div className="w-full max-w-md p-8 bg-black text-center">
         <header>
           <Image
-            src="spoti_logo_white.svg"
-            alt="Spotify Logo"
+            src="wavely_logo_white.svg"
+            alt="Wavely Logo"
             className="mx-auto w-12 mb-6"
             width={48}
             height={48}

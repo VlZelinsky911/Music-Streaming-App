@@ -11,7 +11,7 @@ import CustomCheckbox from "../CustomCheckbox";
 import TermsOfService from "../../../legal/TermsOfService";
 import Loading from "../../../loading/Loading";
 import toast from "react-hot-toast";
-import { supabase } from "../../../../../services/supabaseClient";
+import { supabase } from "../../../../../lib/supabaseClient";
 
 const schema = z.object({
   newsOptIn: z.boolean().optional(),
@@ -49,50 +49,59 @@ export default function TermsPage() {
     return () => clearTimeout(timer);
   }, []);
 
-	const onSubmit = async (data: FormData) => {
-		const fields = ["signup_email", "signup_password", "signup_username", "signup_birthday", "signup_gender"];
-		const [email, password, username, birthDate, gender] = fields.map((key) => localStorage.getItem(key));
-	
-		if (!email || !password || !username || !birthDate || !gender) {
-			toast.error("No data found. Start registration again.");
-			router.push("/sign-up");
-			return;
-		}
-	
-		setIsLoading(true);
-	
-		const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-			email,
-			password,
-			options: {
-				emailRedirectTo: `${window.location.origin}/sign-in`,
-				data: {
-					username,
-					birth_date: birthDate,
-					gender,
-					news_opt_in: data.newsOptIn ?? false,
-					marketing_opt_in: data.marketingOptIn ?? false,
-					agree_terms: data.agreeTerms,
-				},
-			},
-		});
-		
-	
-		if (signUpError || !signUpData?.user?.id) {
-			toast.error(signUpError?.message || "Something went wrong. Try again.");
-			setIsLoading(false);
-			return;
-		}
-	
-		fields.forEach((key) => localStorage.removeItem(key));
-		
-		setTimeout(() => {
-			toast.success("🎧 Registration successful! Confirm email to get started 🎉");
-			router.push("/sign-in/email-tutorial");
-		}, 6000);  
-	};
-	
-	
+  const onSubmit = async (data: FormData) => {
+    const fields = [
+      "signup_email",
+      "signup_password",
+      "signup_username",
+      "signup_birthday",
+      "signup_gender",
+    ];
+    const [email, password, username, birthDate, gender] = fields.map((key) =>
+      localStorage.getItem(key)
+    );
+
+    if (!email || !password || !username || !birthDate || !gender) {
+      toast.error("No data found. Start registration again.");
+      router.push("/sign-up");
+      return;
+    }
+
+    setIsLoading(true);
+
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp(
+      {
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/sign-in`,
+          data: {
+            username,
+            birth_date: birthDate,
+            gender,
+            news_opt_in: data.newsOptIn ?? false,
+            marketing_opt_in: data.marketingOptIn ?? false,
+            agree_terms: data.agreeTerms,
+          },
+        },
+      }
+    );
+
+    if (signUpError || !signUpData?.user?.id) {
+      toast.error(signUpError?.message || "Something went wrong. Try again.");
+      setIsLoading(false);
+      return;
+    }
+
+    fields.forEach((key) => localStorage.removeItem(key));
+
+    setTimeout(() => {
+      toast.success(
+        "🎧 Registration successful! Confirm email to get started 🎉"
+      );
+      router.push("/sign-in/email-tutorial");
+    }, 6000);
+  };
 
   return (
     <div className="flex justify-center bg-black text-white min-h-screen">
@@ -104,13 +113,13 @@ export default function TermsPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <CustomCheckbox
-            label="I want to receive news and offers from Spotify"
+            label="I want to receive news and offers from Wavely"
             className="bg-[#2A2A2A] p-4 rounded"
             {...register("newsOptIn")}
           />
 
           <CustomCheckbox
-            label="Provide Spotify content providers with my registration details for marketing purposes. Please note that your data may be transferred to countries outside the EEA as described in the Privacy Policy."
+            label="Provide Wavely content providers with my registration details for marketing purposes. Please note that your data may be transferred to countries outside the EEA as described in the Privacy Policy."
             className="bg-[#2A2A2A] p-4 rounded"
             {...register("marketingOptIn")}
           />
@@ -120,11 +129,10 @@ export default function TermsPage() {
               <>
                 I agree to{" "}
                 <a
-                  href="https://www.spotify.com/pl/legal/end-user-agreement/"
+                  href="/legal/terms"
                   className="text-green-500 underline"
-                  target="_blank"
                 >
-                  Terms of Spotify
+                  Terms of Wavely
                 </a>
               </>
             }
@@ -142,11 +150,10 @@ export default function TermsPage() {
             To learn more about how we collect, use, protect and provide access
             to your personal data, please read{" "}
             <a
-              href="https://www.spotify.com/pl/legal/privacy-policy/"
+              href="/legal/policy"
               className="text-green-500 underline"
-              target="_blank"
             >
-              Spotify Privacy Policy
+              Wavely Privacy Policy
             </a>
             .
           </p>

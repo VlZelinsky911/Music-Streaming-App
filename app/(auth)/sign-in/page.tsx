@@ -6,10 +6,10 @@ import EmailFormIN from "../../../components/auth/authUi/singInUi/Form/EmailForm
 import Image from "next/image";
 
 export const metadata = {
-  title: "Sign In - Spotify Clone",
-  description: "Sign in to start listening to music in Spotify Clone",
+  title: "Sign In - Wavely",
+  description: "Sign in to start listening to music in Wavely",
   icons: {
-    icon: "spoti_logo_title.svg",
+    icon: "wavely_logo_title.svg",
   },
 };
 export default function SignInPage() {
@@ -18,14 +18,14 @@ export default function SignInPage() {
       <div className="w-full max-w-md p-8 bg-black text-center">
         <header>
           <Image
-            src="spoti_logo_white.svg"
-            alt="Spotify Logo"
+            src="wavely_logo_white.svg"
+            alt="Wavely Logo"
             className="mx-auto w-12 mb-6"
             width={48}
             height={48}
           />
           <h1 className="mx-auto w-[320px] text-3xl font-bold mb-15">
-            Sign in to Spotify
+            Sign in to Wavely
           </h1>
         </header>
 

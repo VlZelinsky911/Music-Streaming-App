@@ -35,8 +35,8 @@ const SignUpHeader: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center pt-6 bg-black">
       <Image
-        src="/spoti_logo_white.svg"
-        alt="Spotify Logo"
+        src="/wavely_logo_white.svg"
+        alt="Wavely Logo"
         width={50}
         height={50}
         className="mb-4"

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../../services/supabaseClient";
+import { supabase } from "../../../lib/supabaseClient";
 import Loading from "../../../components/auth/loading/Loading";
 
 const AuthCallback = () => {
@@ -10,7 +10,10 @@ const AuthCallback = () => {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.getSession();
 
       if (error) {
         console.error("Error retrieving session:", error.message);
@@ -29,7 +32,7 @@ const AuthCallback = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <Loading/>
+      <Loading />
     </div>
   );
 };

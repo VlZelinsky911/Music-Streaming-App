@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 export const metadata = {
-	title: "Terms - Spotify Pet Project",
+	title: "Terms - Wavely",
 	description:
 		"Read our privacy policy and terms of service for the Spotify-style pet project. Transparency and user trust come first.",
 	icons: {
-		icon: "/spoti_logo_title.svg",
+		icon: "/wavely_logo_title.svg",
 	},
 };
 
@@ -17,13 +17,13 @@ const page = () => {
 			<div className="bg-zinc-800/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-2xl border border-zinc-700">
 				<div className="text-center mb-6">
 					<Image
-						src="/spoti_logo_white.svg"
-						alt="Spotify Logo"
+						src="/wavely_logo_white.svg"
+						alt="Wavely Logo"
 						className="mx-auto mb-3"
 						width={48}
 						height={48}
 					/>
-					<h2 className="text-3xl font-bold tracking-wide">Spotify Pet Project</h2>
+					<h2 className="text-3xl font-bold tracking-wide">Wavely</h2>
 					<p className="text-sm text-gray-400 mt-1">Terms of Service</p>
 				</div>
 

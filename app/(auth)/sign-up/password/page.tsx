@@ -1,10 +1,10 @@
 import PasswordForm from "../../../../components/auth/authUi/singUpUi/Form/PasswordForm";
 import SignUpHeader from "../../../../components/auth/authUi/singUpUi/SignUpHeader";
 export const metadata = {
-  title: "Sign Up - Spotify Clone",
-  description: "Create a password to start listening to music on Spotify Clone",
+  title: "Sign Up - Wavely",
+  description: "Create a password to start listening to music on Wavely",
   icons: {
-    icon: "/spoti_logo_title.svg",
+    icon: "/wavely_logo_title.svg",
   },
 };
 

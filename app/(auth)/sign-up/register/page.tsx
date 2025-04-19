@@ -2,10 +2,10 @@ import RegisterForm from "../../../../components/auth/authUi/singUpUi/Form/Regis
 import SignUpHeader from "../../../../components/auth/authUi/singUpUi/SignUpHeader";
 
 export const metadata = {
-  title: "Sign Up - Spotify Clone",
-  description: "To start listening to music on Spotify Clone",
+  title: "Sign Up - Wavely",
+  description: "To start listening to music on Wavely",
   icons: {
-    icon: "/spoti_logo_title.svg",
+    icon: "/wavely_logo_title.svg",
   },
 };
 export default function RegisterPage() {
