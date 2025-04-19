@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Feature Unavailable - Spotify Pet Project",
+  title: "Feature Unavailable - Wavely",
   description:
     "We apologize for the inconvenience — this feature is currently under development. Thank you for your patience.",
   icons: {
-    icon: "/spoti_logo_title.svg",
+    icon: "/wavely_logo_title.svg",
   },
 };
 
@@ -16,14 +16,14 @@ const page = () => {
       <div className="bg-zinc-800/60 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-2xl border border-zinc-700">
         <div className="text-center mb-8">
           <Image
-            src="/spoti_logo_white.svg"
-            alt="Spotify Logo"
+            src="/wavely_logo_white.svg"
+            alt="Wavely Logo"
             className="mx-auto mb-4"
             width={60}
             height={60}
           />
           <h2 className="text-4xl font-bold tracking-wide">
-            Spotify Pet Project
+						Wavely Pet Project
           </h2>
         </div>
 

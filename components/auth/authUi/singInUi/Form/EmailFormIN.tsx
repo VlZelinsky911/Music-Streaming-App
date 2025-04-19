@@ -8,12 +8,14 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Loading from "../../../loading/Loading";
-import { supabase } from "../../../../../services/supabaseClient";
+import { supabase } from "../../../../../lib/supabaseClient";
 import useProfileSetupOnLogin from "../../../../../hooks/useProfileSetupOnLogin";
 
 const schema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
-	password: z.string().min(6, { message: "Password must be at least 6 characters." })
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters." }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -21,7 +23,7 @@ type FormData = z.infer<typeof schema>;
 export default function EmailForm() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -31,27 +33,27 @@ export default function EmailForm() {
     resolver: zodResolver(schema),
   });
 
-	useProfileSetupOnLogin();
+  useProfileSetupOnLogin();
 
-	const onSubmit = async (formData: FormData) => {
-		setIsLoading(true);
+  const onSubmit = async (formData: FormData) => {
+    setIsLoading(true);
 
-		const { email, password } = formData;
-		
-		const { data, error } = await supabase.auth.signInWithPassword({
+    const { email, password } = formData;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
     if (error) {
-      toast.error("Помилка входу: " + error.message);
+      toast.error("Login error: " + error.message);
       setIsLoading(false);
       return;
     }
 
-    toast.success("Вітаємо! Ви успішно увійшли в акаунт.");
+    toast.success("Congratulations! You have successfully logged in.");
     router.push("/");
-};
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-left">
@@ -71,7 +73,7 @@ export default function EmailForm() {
         <input
           type={showPassword ? "password" : "text"}
           className="w-full bg-black border border-gray-600 text-white p-3 pr-10 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-					{...register("password")}
+          {...register("password")}
           placeholder="Enter your password"
         />
         <button
@@ -82,7 +84,7 @@ export default function EmailForm() {
           {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
         </button>
       </div>
-			{errors.password && (
+      {errors.password && (
         <p className="text-red-500 text-sm mt-2">{errors.password.message}</p>
       )}
 
@@ -90,7 +92,7 @@ export default function EmailForm() {
         type="submit"
         className="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-4 rounded-full mt-4"
       >
-      {isLoading ? <Loading/> : "Login"}
+        {isLoading ? <Loading /> : "Login"}
       </button>
     </form>
   );

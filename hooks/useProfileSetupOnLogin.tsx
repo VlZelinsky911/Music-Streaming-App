@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { supabase } from "../services/supabaseClient";
+import { supabase } from "../lib/supabaseClient";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +12,8 @@ const useProfileSetupOnLogin = () => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === "SIGNED_IN" && session?.user) {
-          const { data: freshUserData, error: userError } = await supabase.auth.getUser();
+          const { data: freshUserData, error: userError } =
+            await supabase.auth.getUser();
 
           if (userError || !freshUserData?.user) {
             return;
@@ -34,16 +35,18 @@ const useProfileSetupOnLogin = () => {
             }
 
             if (!profileExists) {
-              const { error: insertError } = await supabase.from("profiles").insert({
-                id: user.id,
-                email: user.email,
-                username: user.user_metadata.username,
-                birth_date: user.user_metadata.birth_date,
-                gender: user.user_metadata.gender,
-                news_opt_in: user.user_metadata.news_opt_in,
-                marketing_opt_in: user.user_metadata.marketing_opt_in,
-                agree_terms: user.user_metadata.agree_terms,
-              });
+              const { error: insertError } = await supabase
+                .from("profiles")
+                .insert({
+                  id: user.id,
+                  email: user.email,
+                  username: user.user_metadata.username,
+                  birth_date: user.user_metadata.birth_date,
+                  gender: user.user_metadata.gender,
+                  news_opt_in: user.user_metadata.news_opt_in,
+                  marketing_opt_in: user.user_metadata.marketing_opt_in,
+                  agree_terms: user.user_metadata.agree_terms,
+                });
 
               if (insertError) {
                 toast.error("Failed to save profile.");

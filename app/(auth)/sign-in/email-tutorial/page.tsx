@@ -2,11 +2,11 @@ import React from "react";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Confirm Your Email - Spotify Clone",
+  title: "Confirm Your Email - Wavely",
   description:
-    "Complete your registration by confirming your email. We've sent you a link – check your inbox and get started with your Spotify-style experience.",
+    "Complete your registration by confirming your email. We've sent you a link – check your inbox and get started with your Wavely - style experience.",
   icons: {
-    icon: "/spoti_logo_title.svg",
+    icon: "/wavely_logo_title.svg",
   },
 };
 
@@ -16,13 +16,13 @@ const page = () => {
       <div className="bg-zinc-800/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-zinc-700">
         <div className="text-center mb-6">
           <Image
-            src="/spoti_logo_white.svg"
-            alt="Spotify Logo"
+            src="/wavely_logo_white.svg"
+            alt="Wavely Logo"
             className="mx-auto mb-3"
             width={48}
             height={48}
           />
-          <h2 className="text-3xl font-bold tracking-wide">Spotify</h2>
+          <h2 className="text-3xl font-bold tracking-wide">Wavely</h2>
         </div>
 
         <div className="max-h-96 overflow-y-auto space-y-4 pr-2 scrollbar-thin scrollbar-thumb-zinc-600 scrollbar-track-transparent">
