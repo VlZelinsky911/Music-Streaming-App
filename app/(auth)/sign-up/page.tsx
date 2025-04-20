@@ -17,7 +17,7 @@ export default function SignUpPage() {
       <div className="w-full max-w-md p-8 bg-black text-center">
         <header>
           <Image
-            src="wavely_logo_white.svg"
+            src="/wavely_logo_white.png"
             alt="Wavely Logo"
             className="mx-auto w-12 mb-6"
             width={48}
