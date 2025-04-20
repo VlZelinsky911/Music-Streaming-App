@@ -1,6 +1,6 @@
 export default function TermsOfService() {
 	return (
-		<p className="text-xs text-gray-500 mt-6 text-center">
+		<p className="text-xs text-gray-500 text-center relative -bottom-16">
           This site is protected by reCAPTCHA and the Google{" "}
           <a href="/legal/policy" className="underline">
             Privacy Policy
