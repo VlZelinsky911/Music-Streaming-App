@@ -17,7 +17,7 @@ const page = () => {
 			<div className="bg-zinc-800/60 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-2xl border border-zinc-700">
 				<div className="text-center mb-6">
 					<Image
-						src="/wavely_logo_white.svg"
+						src="/wavely_logo_white.png"
 						alt="Wavely Logo"
 						className="mx-auto mb-3"
 						width={48}
