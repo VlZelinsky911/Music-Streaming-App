@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import * as z from 'zod';
+import { supabase } from '../../../../../lib/supabaseClient';
 
 const schema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address.' }),
@@ -17,12 +18,36 @@ export default function EmailForm() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-		localStorage.setItem("signup_email", data.email);
+  const onSubmit = async (data: FormData) => {
+    const { data: user, error } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', data.email)
+      .single();
+
+    if (user) {
+      setError('email', {
+        type: 'manual',
+        message: 'This email is already registered.',
+      });
+      return;
+    }
+
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error while checking email:', error);
+      setError('email', {
+        type: 'manual',
+        message: 'Something went wrong. Please try again.',
+      });
+      return;
+    }
+
+    localStorage.setItem('signup_email', data.email);
     router.push('/sign-up/password');
   };
 
@@ -42,7 +67,7 @@ export default function EmailForm() {
         type="submit"
         className="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-3 px-4 rounded-full mt-4"
       >
-				Next
+        Next
       </button>
     </form>
   );

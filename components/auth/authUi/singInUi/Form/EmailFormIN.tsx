@@ -10,6 +10,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Loading from "../../../loading/Loading";
 import { supabase } from "../../../../../lib/supabaseClient";
 import useProfileSetupOnLogin from "../../../../../hooks/useProfileSetupOnLogin";
+import Link from "next/link";
 
 const schema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -87,6 +88,13 @@ export default function EmailForm() {
       {errors.password && (
         <p className="text-red-500 text-sm mt-2">{errors.password.message}</p>
       )}
+
+      <Link
+        href="/reset-password"
+        className="text-xs text-gray-400 hover:text-white transition-colors duration-200 ml-auto block text-right"
+      >
+        Reset password
+      </Link>
 
       <button
         type="submit"
