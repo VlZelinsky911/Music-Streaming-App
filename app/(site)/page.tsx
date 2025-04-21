@@ -1,13 +1,17 @@
-export default function Home() {
+import Header from "../../components/header/header";
 
+export const metadata = {
+  title: "Wavely",
+  description: "Wavely is a most popular music streaming service in the world",
+  icons: {
+    icon: "/wavely_logo_title_green.png",
+  },
+};
+
+export default function Home() {
   return (
-    <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-      <h1 className="text-4xl text-blue-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
-        veritatis at ab totam magnam quis perspiciatis autem excepturi
-        architecto natus provident, eaque est assumenda soluta? Fugit dicta ut
-        nesciunt laborum.
-      </h1>
-    </div>
+    <>
+      <Header />
+    </>
   );
 }
