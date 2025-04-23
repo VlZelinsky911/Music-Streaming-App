@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { MdHomeFilled } from "react-icons/md";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "../searchBar/SearchBar";
 
 export default function Navigation() {
   return (
