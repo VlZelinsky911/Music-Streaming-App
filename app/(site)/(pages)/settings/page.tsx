@@ -1,3 +1,4 @@
+import BtnBack from "../../../../components/auth/authUi/singUpUi/BtnBack";
 import Settings from "../../../../components/pages/Settings/Settings";
 import Image from "next/image";
 
@@ -5,13 +6,16 @@ export const metadata = {
   title: "Wavely — Settings",
   description:
     "Manage your Wavely preferences: playback, account, appearance and more.",
+	icons: {
+		icon: "/wavely_logo_title.svg",
+	}
 };
 
 export default function SettingsPage() {
   return (
     <div className="bg-gradient-to-br from-zinc-900 via-black to-zinc-800 min-h-screen flex items-center justify-center px-4 text-white">
-      <div className="bg-zinc-800/60 backdrop-blur-md my-4 p-8 rounded-2xl shadow-2xl w-full max-w-2xl border border-zinc-700">
-        <div className="text-center mb-8">
+		  <div className="bg-zinc-800/60 backdrop-blur-md my-4 p-8 rounded-2xl shadow-2xl w-full max-w-2xl border border-zinc-700">
+				<div className="text-center mb-8">
           <Image
             src="/wavely_logo_white.png"
             alt="Wavely Logo"
