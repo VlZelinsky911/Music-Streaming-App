@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import SettingToggle from "./SettingsToggle/SettingsToggle";
 import SettingItem from "./SettingItem/SettingItem";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import toast from "react-hot-toast";
 import SettingModal from "./SettingModal";
+import Loading from "../../auth/loading/Loading";
 
 
 export default function SettingsPage({ user }: SettingProps) {
@@ -14,9 +15,18 @@ export default function SettingsPage({ user }: SettingProps) {
   const [darkMode, setDarkMode] = useState(true);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+	const [isPageLoading, setIsPageLoading] = useState(true); 
 
 	const router = useRouter();
   const supabase = createClientComponentClient();
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsPageLoading(false);
+		}, 500);
+
+		return () => clearTimeout(timer);
+	}, []);
 
 
   const handleDeleteAccount = async () => {
@@ -52,6 +62,8 @@ export default function SettingsPage({ user }: SettingProps) {
   const handleUpdate = async () => {
     setIsOpen(true);
   };
+
+	if (!user || isPageLoading) return <Loading/>
 
   return (
     <>
