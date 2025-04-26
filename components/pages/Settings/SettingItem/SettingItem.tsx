@@ -2,6 +2,7 @@ export default function SettingItem({
   label,
   value,
   handleUpdate,
+	handle2FAUpdate,
 }: SettingItemProps) {
   return (
     <>
@@ -11,11 +12,19 @@ export default function SettingItem({
         {handleUpdate && (
           <button
             onClick={handleUpdate}
-            className="text-xs text-red-500 hover:text-red-400 font-medium px-3 py-1 rounded-md transition"
+            className="text-xs text-red-500 hover:text-red-400 font-medium px-3 py-1 rounded-md transition cursor-pointer"
           >
             Delete
           </button>
         )}
+				{handle2FAUpdate && (
+					<button
+						onClick={handle2FAUpdate}
+						className="text-xs text-green-500 hover:text-green-400 font-medium px-3 py-1 rounded-md transition cursor-pointer"
+					>
+						Update
+					</button>
+				)}
       </div>
     </>
   );

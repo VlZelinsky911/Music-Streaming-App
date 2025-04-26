@@ -57,11 +57,15 @@ export default function SettingsPage({ user }: SettingProps) {
 			setLoading(false);
 		}
 	};
-	
 
   const handleUpdate = async () => {
     setIsOpen(true);
   };
+
+	const handle2FAUpdate = () => {
+		router.push("legal/inProgress");
+	};
+	
 
 	if (!user || isPageLoading) return <Loading/>
 
@@ -89,7 +93,7 @@ export default function SettingsPage({ user }: SettingProps) {
           <SettingItem label="Subscription Plan" value="Premium" />
           <SettingItem label="Email" value={user?.email || "Guest"} />
           <SettingItem label="Delete profile" handleUpdate={handleUpdate} />
-          <SettingItem label="2FA" handleUpdate={handleUpdate} />
+          <SettingItem label="2FA" handle2FAUpdate={handle2FAUpdate} />
         </div>
       </section>
 
