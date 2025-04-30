@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -8,10 +9,12 @@ import Navigation from "./navigation/navigation";
 import SearchBar from "./SearchBar/SearchBar";
 import { supabase } from "../../lib/supabaseClient";
 import Loading from "../auth/loading/Loading";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -55,16 +58,23 @@ export default function Header() {
           />
         </Link>
 
-        {!isLoggedIn && (
-          <div className="ml-4">
-            <SearchBar />
-          </div>
-        )}
+        {!isLoggedIn && <SearchBar />}
       </div>
 
-      {isLoggedIn ? <Navigation /> : <div className="flex-1" />}
+      <div className="flex items-center center">
+        <button
+          className="md:hidden text-white"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
 
-      <div className="flex items-center min-w-[200px] justify-end gap-6 text-sm font-medium">
+      <div className="ml-4 hidden md:block">
+        {isLoggedIn ? <Navigation /> : <div className="flex-1" />}
+      </div>
+
+      <div className="hidden md:flex items-center min-w-[200px] justify-end gap-6 text-sm font-medium">
         <Link href="#" className="hover:underline">
           Premium
         </Link>
