@@ -46,7 +46,7 @@ export default function UserMenu() {
           Sign up
         </Link>
         <Link href="/sign-in">
-          <button className="bg-white text-black px-4 py-1.5 rounded-full hover:bg-gray-200 transition">
+          <button className="bg-white text-black px-4 py-1.5 rounded-full hover:bg-gray-200 transition cursor-pointer">
             Sign in
           </button>
         </Link>
