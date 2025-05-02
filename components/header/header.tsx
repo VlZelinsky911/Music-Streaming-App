@@ -1,15 +1,15 @@
 "use client";
-"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import UserMenu from "./userMenu/UserMenu";
-import Navigation from "./navigation/navigation";
+import UserMenu from "./UserMenu/UserMenu";
+import Navigation from "./Navigation/navigation";
 import SearchBar from "./SearchBar/SearchBar";
 import { supabase } from "../../lib/supabaseClient";
 import Loading from "../auth/loading/Loading";
 import { Menu, X } from "lucide-react";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
@@ -58,19 +58,28 @@ export default function Header() {
           />
         </Link>
 
-        {!isLoggedIn && <SearchBar />}
+        {!isLoggedIn && (
+          <div className="hidden sm:flex">
+            <SearchBar />
+          </div>
+        )}
       </div>
 
-      <div className="flex items-center center">
+      <div className="md:hidden flex items-center">
         <button
-          className="md:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-white"
+          onClick={() => setIsMobileMenuOpen(true)}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          <Menu size={28} />
         </button>
       </div>
 
-      <div className="ml-4 hidden md:block">
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
+
+      <div className="ml-4 hidden lg:block">
         {isLoggedIn ? <Navigation /> : <div className="flex-1" />}
       </div>
 
@@ -78,7 +87,7 @@ export default function Header() {
         <Link href="#" className="hover:underline">
           Premium
         </Link>
-        <Link href="#" className="hover:underline">
+        <Link href="https://t.me/wawelySupport" target="_blank" className="hover:underline">
           Support
         </Link>
         <span className="text-gray-600">|</span>
