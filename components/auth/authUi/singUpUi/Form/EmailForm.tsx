@@ -55,6 +55,7 @@ export default function EmailForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="text-left">
       <label className="text-sm font-semibold mb-2 block">Email address</label>
       <input
+				id="email"
         type="email"
         placeholder="name@domain.com"
         {...register('email')}
