@@ -58,8 +58,11 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-left">
-      <label className="text-sm font-semibold mb-2 block">Email address</label>
+      <label htmlFor="email" className="text-sm font-semibold mb-2 block">
+        Email address
+      </label>
       <input
+        id="email"
         type="email"
         placeholder="name@domain.com"
         {...register("email")}
@@ -69,9 +72,10 @@ export default function EmailForm() {
         <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>
       )}
 
-      <label className="text-sm font-semibold block mt-4 mb-2">Password</label>
+      <label htmlFor="password" className="text-sm font-semibold block mt-4 mb-2">Password</label>
       <div className="relative mb-4">
         <input
+					id="password"
           type={showPassword ? "password" : "text"}
           className="w-full bg-black border border-gray-600 text-white p-3 pr-10 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
           {...register("password")}
