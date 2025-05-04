@@ -53,15 +53,12 @@ export default function TermsPage() {
     const fields = [
       "signup_email",
       "signup_password",
-      "signup_username",
-      "signup_birthday",
-      "signup_gender",
     ];
-    const [email, password, username, birthDate, gender] = fields.map((key) =>
+    const [email, password ] = fields.map((key) =>
       localStorage.getItem(key)
     );
 
-    if (!email || !password || !username || !birthDate || !gender) {
+    if (!email || !password) {
       toast.error("No data found. Start registration again.");
       router.push("/sign-up");
       return;
@@ -76,9 +73,6 @@ export default function TermsPage() {
         options: {
           emailRedirectTo: `${window.location.origin}/sign-in`,
           data: {
-            username,
-            birth_date: birthDate,
-            gender,
             news_opt_in: data.newsOptIn ?? false,
             marketing_opt_in: data.marketingOptIn ?? false,
             agree_terms: data.agreeTerms,

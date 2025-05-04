@@ -57,11 +57,7 @@ export default function AboutPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const onSubmit = (data: FormData) => {
-    localStorage.setItem("signup_username", data.username);
-		localStorage.setItem("signup_birthday", `${data.birthDay}/${data.birthMonth}/${data.birthYear}`);
-		localStorage.setItem("signup_gender", data.gender);
-		
+  const onSubmit = (data: FormData) => {	
     router.push("/sign-up/register");
   };
 
@@ -74,8 +70,9 @@ export default function AboutPage() {
         <h2 className="text-[15px] font-bold mb-4">Tell us about yourself</h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="text-sm font-semibold block mb-2">Name</label>
+          <label htmlFor="username" className="text-sm font-semibold block mb-2">Name</label>
           <input
+						id="username"
             type="text"
             {...register("username")}
             className="w-full bg-black border border-gray-600 text-white p-3 rounded-md mb-1 focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -85,11 +82,12 @@ export default function AboutPage() {
             <p className="text-red-500 text-sm mb-4">{errors.username.message}</p>
           )}
 
-          <label className="text-sm font-semibold block mb-2">
+          <label htmlFor="birthDay" className="text-sm font-semibold block mb-2">
             Date of Birth
           </label>
           <div className="flex gap-2 mb-1">
             <input
+							id="birthDay"
               type="number"
               placeholder="DD"
               {...register("birthDay")}
@@ -151,6 +149,7 @@ export default function AboutPage() {
           )}
 
           <label className="text-sm font-semibold block mb-2">Gender</label>
+					<input type="hidden" {...register("gender")} />
           <div className="grid grid-cols-2 gap-2 mb-6">
             {["Male", "Female", "Non-binary", "Other", "Prefer not to say"].map(
               (option) => (

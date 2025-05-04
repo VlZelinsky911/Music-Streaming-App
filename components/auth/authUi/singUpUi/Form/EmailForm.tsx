@@ -53,7 +53,7 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="text-left">
-      <label className="text-sm font-semibold mb-2 block">Email address</label>
+      <label htmlFor="email" className="text-sm font-semibold mb-2 block">Email address</label>
       <input
 				id="email"
         type="email"

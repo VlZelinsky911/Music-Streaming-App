@@ -66,9 +66,10 @@ export default function PasswordForm() {
       <p className="text-base text-gray-400 mb-1">Step 1 of 3</p>
       <h2 className="text-[15px] font-bold mb-4">Create a password</h2>
 
-      <label className="text-sm font-semibold block mb-2">Password</label>
+      <label htmlFor="password" className="text-sm font-semibold block mb-2">Password</label>
       <div className="relative mb-1">
         <input
+					id="password"
           type={showPassword ? "text" : "password"}
           placeholder="Create your password"
           className="w-full bg-black border border-gray-600 text-white p-3 pr-10 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
@@ -76,6 +77,7 @@ export default function PasswordForm() {
         />
         <button
           type="button"
+					aria-label={showPassword ? "Hide visible" : "Show visible"}
           onClick={() => setShowPassword((prev) => !prev)}
           className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400"
         >
