@@ -1,14 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-
 import { describe, it, vi } from 'vitest';
 import EmailFormIN from './EmailFormIN';
+import { supabase } from '../../../../../lib/supabaseClient';
 
-// Простий мок роутера
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn() }),
 }));
 
-// Простий мок supabase
 vi.mock('../../../../../lib/supabaseClient', () => ({
   supabase: {
     auth: {
@@ -20,12 +18,12 @@ vi.mock('../../../../../lib/supabaseClient', () => ({
   },
 }));
 
-// Мок хука
+
 vi.mock('../../../../../hooks/useProfileSetupOnLogin', () => ({
   default: () => {},
 }));
 
-describe('EmailForm', () => {
+describe('EmailFormIN', () => {
   it('renders the form fields', () => {
     render(<EmailFormIN />);
     expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
@@ -54,4 +52,22 @@ describe('EmailForm', () => {
     expect(emailInput).toHaveValue('test@email.com');
     expect(passwordInput).toHaveValue('123456');
   });
+
+	it('calls supabase.auth.signInWithPassword on submit', async () => {
+		render(<EmailFormIN />);
+		const emailInput = screen.getByLabelText(/Email address/i);
+		const passwordInput = screen.getByLabelText(/Password/i);
+
+		fireEvent.change(emailInput, { target: { value: 'test@email.com' } });
+		fireEvent.change(passwordInput, { target: { value: '123456' } });
+
+		fireEvent.click(screen.getByRole('button', { name: /login/i }));
+
+		await waitFor(() => {
+			expect(supabase.auth.signInWithPassword).toHaveBeenCalledWith({
+				email: 'test@email.com',
+				password: '123456',
+			});
+		});
+	});
 });

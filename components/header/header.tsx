@@ -68,6 +68,7 @@ export default function Header() {
       <div className="md:hidden flex items-center">
         <button
           className="text-white"
+					data-testid="menu-button"
           onClick={() => setIsMobileMenuOpen(true)}
         >
           <Menu size={28} />
