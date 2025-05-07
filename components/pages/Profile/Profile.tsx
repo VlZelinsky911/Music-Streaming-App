@@ -1,10 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { supabase } from "../../../lib/supabaseClient";
 
 export default function ProfilePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error getting user:", error.message);
+        return;
+      }
+      setUser(data.user as SupabaseUser);
+      console.log(data.user);
+    };
+
+    fetchUser();
+  }, []);
+
+  const copyProfileUrl = () => {
+    const url = `${window.location.origin}/user/${user?.id}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
     <div className="min-h-screen bg-black text-white flex">
@@ -40,7 +65,7 @@ export default function ProfilePage() {
             </div>
             <div>
               <p className="text-sm uppercase">Profile</p>
-              <h1 className="text-5xl font-bold">lastname_zelinsky</h1>
+						<h1 className="text-5xl font-bold">{user?.email || "Guest"}</h1>
             </div>
           </div>
         </div>
@@ -56,8 +81,8 @@ export default function ProfilePage() {
           {menuOpen && (
             <div className="absolute mt-2 py-2 px-1 w-48 bg-[#282828] text-[#DFDFDF] rounded-lg shadow-lg z-50">
               <Link
-                href="/profile"
-                className="flex items-center px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md"
+                href="/profile/edit"
+                className="flex items-center px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -76,9 +101,9 @@ export default function ProfilePage() {
                 Edit Profile
               </Link>
 
-              <Link
-                href="/settings"
-                className="flex items-center px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md"
+              <button
+                onClick={copyProfileUrl}
+                className="w-full text-left flex items-center px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +120,13 @@ export default function ProfilePage() {
                   />
                 </svg>
                 Profile URL
-              </Link>
+              </button>
+
+              {copied && (
+                <div className="text-sm text-green-400 px-4 pt-1">
+									Copied!
+                </div>
+              )}
             </div>
           )}
         </div>
