@@ -73,20 +73,20 @@ export default function UserMenu() {
         <div className="absolute right-0 mt-2 py-2 px-1 w-40 bg-[#282828] text-[#DFDFDF] rounded-lg shadow-lg z-50">
           <Link
             href="/profile"
-            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md"
+            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
           >
             Profile
           </Link>
           <Link
             href="/settings"
-            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md"
+            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
           >
             Settings
           </Link>
           <div className="my-2 border-t border-[#444]" />
           <button
             onClick={handleLogout}
-            className="block w-full text-left px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md"
+            className="block w-full text-left px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
           >
             Logout
           </button>
