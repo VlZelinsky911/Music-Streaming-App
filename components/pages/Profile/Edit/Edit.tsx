@@ -1,136 +1,160 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FiChevronDown } from "react-icons/fi";
+
+const currentYear = new Date().getFullYear();
+
+const schema = z.object({
+  username: z.string().min(2, "Username is too short"),
+  email: z.string().email("Invalid email"),
+  day: z.string().regex(/^\d{1,2}$/, "Invalid day"),
+  month: z.string().min(1, "Month is required"),
+  year: z
+			.string()
+			.regex(
+				/^(19[0-9]{2}|20[0-2][0-9]|2025)$/,
+				"Enter a valid year from 1900 to 2025"
+			)
+			.refine((val) => parseInt(val) <= currentYear, {
+				message: "The year cannot be in the future.",
+			}),
+  gender: z.string().min(1, "Gender is required"),
+  location: z.string().min(2, "Location is required"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 export default function EditProfileForm() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    day: "",
-    month: "",
-    year: "",
-    gender: "",
-    location: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleGenderSelect = (gender: string) => {
-    setFormData((prev) => ({ ...prev, gender }));
-  };
-
-  const isFormComplete = Object.values(formData).every((val) => val.trim() !== "");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Submitted:", formData);
-    // TODO: надіслати дані на сервер
-  };
-
   const genderOptions = [
-    "Чоловік",
-    "Жінка",
-    "Небінарний",
-    "Інше",
-    "Не хочу вказувати",
+    "Male",
+    "Female",
+    "Non-binary",
+    "Other",
+    "Prefer not to say",
   ];
 
-  return (
-    <div className="min-h-screen  flex items-center justify-center px-4 py-12">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-neutral-900 p-8 rounded-2xl shadow-xl w-full max-w-md space-y-6"
-      >
-        <h2 className="text-2xl font-semibold text-center">Редагування профілю</h2>
+  const selectedGender = watch("gender");
 
-        {/* Username */}
+  const onSubmit = (data: FormData) => {
+    console.log("Form submitted:", data);
+    // TODO: send to server
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-neutral-900 p-8 rounded-2xl shadow-xl w-full max-w-md space-y-6 text-white"
+      >
+        <h2 className="text-2xl font-semibold text-center">Edit Profile</h2>
+
+
         <div>
-          <label className="block text-sm mb-1">Ім'я користувача</label>
+          <label className="block text-sm mb-1">Username</label>
           <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Ваш нікнейм"
+            {...register("username")}
+            placeholder="Your nickname"
             className="w-full p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500"
-            required
           />
+          {errors.username && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.username.message}
+            </p>
+          )}
         </div>
 
-        {/* Email */}
+        
         <div>
           <label className="block text-sm mb-1">Email</label>
           <input
+            {...register("email")}
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
             placeholder="example@email.com"
             className="w-full p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500"
-            required
           />
+          {errors.email && (
+            <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
+          )}
         </div>
 
-        {/* Date of Birth */}
+       
         <div>
-          <label className="block text-sm mb-1">Дата народження</label>
+          <label className="block text-sm mb-1">Date of Birth</label>
           <div className="flex space-x-2">
             <input
-              type="text"
-              name="day"
-              placeholder="ДД"
-              value={formData.day}
-              onChange={handleChange}
+              {...register("day")}
+              placeholder="DD"
               maxLength={2}
               className="w-1/3 p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white text-center"
-              required
             />
-            <select
-              name="month"
-              value={formData.month}
-              onChange={handleChange}
-              className="w-1/3 p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white"
-              required
-            >
-              <option value="">Місяць</option>
-              {[
-                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
-                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
-              ].map((month) => (
-                <option key={month} value={month}>{month}</option>
-              ))}
-            </select>
+            <div className="relative w-1/3">
+              <select
+                {...register("month")}
+                className="w-full p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              >
+                <option value="" >Month</option>
+                {[
+"January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+                ].map((month) => (
+                  <option key={month} value={month} >
+                    {month}
+                  </option>
+                ))}
+              </select>
+              <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-white pointer-events-none" />
+            </div>
+
             <input
-              type="text"
-              name="year"
-              placeholder="РРРР"
-              value={formData.year}
-              onChange={handleChange}
+              {...register("year")}
+							type="number"
+              placeholder="YYYY"
               maxLength={4}
-              className="w-1/3 p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white text-center"
-              required
+              className="w-1/3 p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white text-center appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+							onInput={(e: any) => {
+                if (e.target.value.length > 4)
+                  e.target.value = e.target.value.slice(0, 4);
+              }}
             />
           </div>
+          {(errors.day || errors.month || errors.year) && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.day?.message ||
+                errors.month?.message ||
+                errors.year?.message}
+            </p>
+          )}
         </div>
 
-        {/* Gender */}
         <div>
-          <label className="block text-sm mb-1">Гендер</label>
+          <label className="block text-sm mb-1">Gender</label>
+          <input type="hidden" {...register("gender")} />
           <div className="grid grid-cols-2 gap-2">
             {genderOptions.map((option) => (
               <button
                 key={option}
                 type="button"
-                onClick={() => handleGenderSelect(option)}
+                onClick={() =>
+                  setValue("gender", option, { shouldValidate: true })
+                }
                 className={`py-2 px-4 rounded-md border text-sm transition-all
                   ${
-                    formData.gender === option
-                      ? "bg-indigo-500 text-white border-indigo-400"
+                    selectedGender === option
+                      ? "border-green-500 text-white bg-green-600"
                       : "bg-neutral-800 border-neutral-700 hover:bg-neutral-700"
                   }`}
               >
@@ -138,29 +162,30 @@ export default function EditProfileForm() {
               </button>
             ))}
           </div>
+          {errors.gender && (
+            <p className="text-red-400 text-sm mt-1">{errors.gender.message}</p>
+          )}
         </div>
 
-        {/* Location */}
         <div>
-          <label className="block text-sm mb-1">Країна / місто</label>
+          <label className="block text-sm mb-1">Country / City</label>
           <input
-            type="text"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Україна, Київ"
+            {...register("location")}
+            placeholder="Ukraine, Kyiv"
             className="w-full p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white placeholder-neutral-500"
-            required
           />
+          {errors.location && (
+            <p className="text-red-400 text-sm mt-1">
+              {errors.location.message}
+            </p>
+          )}
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
-          className="w-full py-3 rounded-full bg-neutral-700 text-white font-semibold hover:bg-neutral-600 transition disabled:opacity-50"
-          disabled={!isFormComplete}
+          className="w-full py-3 rounded-full bg-neutral-700 text-white font-semibold hover:bg-neutral-600 transition"
         >
-          Next
+          Save
         </button>
       </form>
     </div>
