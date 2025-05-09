@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiChevronDown } from "react-icons/fi";
+import toast from "react-hot-toast";
+import { supabase } from "../../../../lib/supabaseClient";
+import type { Session } from '@supabase/auth-helpers-nextjs';
+
 
 const currentYear = new Date().getFullYear();
 
@@ -29,14 +33,17 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function EditProfileForm() {
+	const [session, setSession] = useState<Session | null>(null);
+	
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid ,errors },
     setValue,
     watch,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+		mode: "onChange",
   });
 
   const genderOptions = [
@@ -49,10 +56,73 @@ export default function EditProfileForm() {
 
   const selectedGender = watch("gender");
 
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    // TODO: send to server
+  useEffect(() => {
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      setSession(data.session);
+    };
+    getSession();
+  }, []);
+
+  const onSubmit = async (data: FormData) => {
+    const response = await fetch("/api/edit-profile", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session?.access_token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      toast.error("Помилка при збереженні.");
+      console.error("Failed:", result.error);
+    } else {
+      toast.success("Профіль збережено!");
+    }
   };
+
+	useEffect(() => {
+		const fetchProfile = async () => {
+			
+			if (!session) return;
+	
+			const res = await fetch("/api/get-profile", {
+				headers: {
+					Authorization: `Bearer ${session.access_token}`,
+				},
+			});
+	
+			if (!res.ok) {
+				console.error("Помилка завантаження профілю");
+				return;
+			}
+	
+			const profile = await res.json();
+	
+			setValue("username", profile.username || "");
+			setValue("email", profile.email || "");
+			setValue("gender", profile.gender || "");
+			setValue("location", profile.location || "");
+	
+			if (profile.birth_date) {
+				const [year, month, day] = profile.birth_date.split("-");
+				const monthNames = [
+					"January", "February", "March", "April", "May", "June",
+					"July", "August", "September", "October", "November", "December"
+				];
+				setValue("day", day);
+				setValue("month", monthNames[parseInt(month) - 1]);
+				setValue("year", year);
+			}
+		};
+	
+		fetchProfile();
+	}, [session , setValue]);
+	
+
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
@@ -183,7 +253,12 @@ export default function EditProfileForm() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-full bg-neutral-700 text-white font-semibold hover:bg-neutral-600 transition"
+          className={`w-full py-3 rounded-full  text-white font-semibold  ${
+    isValid
+      ? 'bg-green-500 hover:bg-green-600 text-white'
+      : 'bg-neutral-700 cursor-not-allowed text-white'
+  }`}
+					disabled={!isValid}
         >
           Save
         </button>
