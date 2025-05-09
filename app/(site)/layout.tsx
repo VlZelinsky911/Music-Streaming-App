@@ -1,10 +1,10 @@
 import "../globals.css";
 import ToasterCustom from "../../components/auth/ToasterCustom/ToasterCustom";
+import Providers from "@/providers/Providers";
 
 export const metadata = {
   title: "Wavely",
-  description:
-    "Wavely is a most popular music streaming service in the world",
+  description: "Wavely is a most popular music streaming service in the world",
   icons: {
     icon: "wavely_logo_green.svg",
   },
@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ToasterCustom />
-        {children}
+        <Providers>
+          <ToasterCustom />
+          {children}
+        </Providers>
       </body>
     </html>
   );
