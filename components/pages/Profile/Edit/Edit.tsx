@@ -8,6 +8,8 @@ import { FiChevronDown } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { supabase } from "../../../../lib/supabaseClient";
 import type { Session } from '@supabase/auth-helpers-nextjs';
+import { genderOptions, monthNames } from "../../../../features/constants/formOptions";
+
 
 
 const currentYear = new Date().getFullYear();
@@ -46,14 +48,6 @@ export default function EditProfileForm() {
 		mode: "onChange",
   });
 
-  const genderOptions = [
-    "Male",
-    "Female",
-    "Non-binary",
-    "Other",
-    "Prefer not to say",
-  ];
-
   const selectedGender = watch("gender");
 
   useEffect(() => {
@@ -77,10 +71,10 @@ export default function EditProfileForm() {
     const result = await response.json();
 
     if (!response.ok) {
-      toast.error("Помилка при збереженні.");
+      toast.error("Error while saving.");
       console.error("Failed:", result.error);
     } else {
-      toast.success("Профіль збережено!");
+      toast.success("Profile saved!");
     }
   };
 
@@ -96,7 +90,7 @@ export default function EditProfileForm() {
 			});
 	
 			if (!res.ok) {
-				console.error("Помилка завантаження профілю");
+				console.error("Error loading profile");
 				return;
 			}
 	
@@ -109,10 +103,6 @@ export default function EditProfileForm() {
 	
 			if (profile.birth_date) {
 				const [year, month, day] = profile.birth_date.split("-");
-				const monthNames = [
-					"January", "February", "March", "April", "May", "June",
-					"July", "August", "September", "October", "November", "December"
-				];
 				setValue("day", day);
 				setValue("month", monthNames[parseInt(month) - 1]);
 				setValue("year", year);
@@ -177,10 +167,7 @@ export default function EditProfileForm() {
                 className="w-full p-3 rounded-md bg-neutral-800 border border-neutral-700 text-white appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               >
                 <option value="" >Month</option>
-                {[
-"January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-                ].map((month) => (
+                {monthNames.map((month) => (
                   <option key={month} value={month} >
                     {month}
                   </option>
