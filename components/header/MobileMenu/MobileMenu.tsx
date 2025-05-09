@@ -15,7 +15,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenu) {
       }`}
     >
       <button
-        className="absolute top-4 right-4 text-white hover:text-gray-400 transition"
+        className="absolute top-4 right-4 text-white hover:text-gray-400 transition active:scale-95"
 				data-testid="close-mobile"
         onClick={onClose}
       >

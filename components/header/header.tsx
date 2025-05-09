@@ -67,7 +67,7 @@ export default function Header() {
 
       <div className="md:hidden flex items-center">
         <button
-          className="text-white"
+          className="text-white active:scale-95"
 					data-testid="menu-button"
           onClick={() => setIsMobileMenuOpen(true)}
         >
