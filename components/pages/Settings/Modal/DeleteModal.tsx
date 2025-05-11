@@ -12,7 +12,7 @@ export default function DeleteModal({
         onClick={() => setIsOpen(false)}
       >
         <div
-          className="bg-zinc-800/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md border border-zinc-700"
+          className=" w-[85%] p-7 sm:w-full bg-zinc-800/80 backdrop-blur-md sm:p-10 rounded-2xl shadow-2xl max-w-md border border-zinc-700"
           onClick={(e) => e.stopPropagation()}
         >
           <Image
@@ -23,7 +23,7 @@ export default function DeleteModal({
             height={60}
             priority
           />
-          <h2 className="text-3xl font-bold tracking-wide text-white text-center">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-wide text-white text-center">
             Delete Account
           </h2>
           <p className="text-sm text-gray-400 mt-1 text-center">
