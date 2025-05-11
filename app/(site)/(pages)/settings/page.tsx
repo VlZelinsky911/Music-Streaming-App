@@ -3,7 +3,7 @@ import Image from "next/image";
 import { createSupabaseServerClient } from "../../../../lib/supabaseServerClient";
 
 export const metadata = {
-  title: "Wavely — Settings",
+  title: "Wavely - Settings",
   description:
     "Manage your Wavely preferences: playback, account, appearance and more.",
   icons: {

@@ -30,7 +30,7 @@ export default function PasswordModal({
   });
 
   const onSubmit = (data: FormData) => {
-		console.log(data);
+    console.log(data);
   };
 
   return (
@@ -39,7 +39,7 @@ export default function PasswordModal({
       onClick={() => setShowPasswordModal((prev) => !prev)}
     >
       <div
-        className="bg-zinc-800/80 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-zinc-700 "
+        className="w-[80%] p-5 sm:w-full bg-zinc-800/80 backdrop-blur-md sm:p-8 rounded-2xl shadow-2xl max-w-md border border-zinc-700"
         onClick={(e) => e.stopPropagation()}
       >
         <Image
@@ -50,10 +50,10 @@ export default function PasswordModal({
           height={60}
           priority
         />
-        <h2 className="text-3xl font-bold tracking-wide text-white text-center mb-1">
+        <h2 className="text-xl sm:text-3xl font-bold tracking-wide text-white text-center mb-1">
           Change Password
         </h2>
-        <p className="text-sm text-gray-400 text-center mb-6">
+        <p className="text-[12px] text-gray-400 text-center mb-6">
           Enter your current and new password
         </p>
 
@@ -63,7 +63,7 @@ export default function PasswordModal({
               type="password"
               placeholder="Current Password"
               {...register("currentPassword")}
-              className="w-full p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm"
+              className="p-2 w-full sm:p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
             />
             {errors.currentPassword && (
               <p className="text-red-400 text-xs mt-1">
@@ -76,7 +76,7 @@ export default function PasswordModal({
               type="password"
               placeholder="New Password"
               {...register("newPassword")}
-              className="w-full p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm"
+              className="p-2 w-full sm:p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
             />
             {errors.newPassword && (
               <p className="text-red-400 text-xs mt-1">
@@ -89,7 +89,7 @@ export default function PasswordModal({
               type="password"
               placeholder="Confirm Password"
               {...register("confirmPassword")}
-              className="w-full p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm"
+              className="p-2 w-full sm:p-3 rounded-md bg-neutral-700/60 placeholder-gray-400 text-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
             />
             {errors.confirmPassword && (
               <p className="text-red-400 text-xs mt-1">
@@ -102,13 +102,13 @@ export default function PasswordModal({
             <button
               type="button"
               onClick={() => setShowPasswordModal((prev) => !prev)}
-              className="text-xs text-gray-300 hover:text-gray-200 font-medium px-5 py-2 rounded-md transition"
+              className="text-xs text-gray-300 hover:text-gray-200 font-medium px-5 py-2 rounded-md transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="text-xs text-green-400 hover:text-green-300 font-medium px-5 py-2 rounded-md transition"
+              className="text-xs text-green-400 hover:text-green-300 font-medium px-5 py-2 rounded-md transition cursor-pointer"
             >
               Save
             </button>
