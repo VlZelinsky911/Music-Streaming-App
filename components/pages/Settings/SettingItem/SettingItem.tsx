@@ -3,6 +3,7 @@ export default function SettingItem({
   value,
   handleUpdate,
 	handle2FAUpdate,
+	handleChangePassword,
 }: SettingItemProps) {
   return (
     <>
@@ -23,6 +24,14 @@ export default function SettingItem({
 						className="text-xs text-green-500 hover:text-green-400 font-medium px-3 py-1 rounded-md transition cursor-pointer"
 					>
 						Update
+					</button>
+				)}
+				{handleChangePassword && (
+					<button
+						onClick={handleChangePassword}
+						className="text-xs text-green-500 hover:text-green-400 font-medium px-3 py-1 rounded-md transition cursor-pointer"
+					>
+						Change
 					</button>
 				)}
       </div>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function SettingModal({
+export default function DeleteModal({
   setIsOpen,
   loading,
   handleDeleteAccount,
@@ -8,11 +8,11 @@ export default function SettingModal({
   return (
     <>
       <div
-        className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50 backdrop-blur-lg transition-all"
+        className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-lg transition-all rounded-2xl"
         onClick={() => setIsOpen(false)}
       >
         <div
-          className="bg-zinc-800/60 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md border border-zinc-700"
+          className="bg-zinc-800/80 backdrop-blur-md p-10 rounded-2xl shadow-2xl w-full max-w-md border border-zinc-700"
           onClick={(e) => e.stopPropagation()}
         >
           <Image
@@ -33,12 +33,12 @@ export default function SettingModal({
           <div className="flex justify-between mt-6 w-full max-w-sm">
             <button
               onClick={() => setIsOpen(false)}
-              className="text-xs text-gray-300 hover:text-gray-200 font-medium px-5 py-2 rounded-md transition"
+              className="text-xs text-gray-300 hover:text-gray-200 font-medium px-5 py-2 rounded-md transition cursor-pointer"
             >
               Cancel
             </button>
 						<button
-              className="text-xs text-red-500 hover:text-red-400 font-medium px-5 py-2 rounded-md transition"
+              className="text-xs text-red-500 hover:text-red-400 font-medium px-5 py-2 rounded-md transition cursor-pointer"
               onClick={handleDeleteAccount}
             >
               {loading ? "Deleting..." : "Delete"}

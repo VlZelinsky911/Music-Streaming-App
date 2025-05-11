@@ -37,7 +37,7 @@ const ProfilePhoto: React.FC = () => {
   return (
     <>
       <div
-        className="relative w-32 h-32 bg-neutral-800 rounded-full flex items-center justify-center cursor-pointer transition duration-200 hover:ring-2 hover:ring-green-500"
+        className="[@media(min-width:375px)_and_(max-width:430px)]:w-24 [@media(min-width:375px)_and_(max-width:430px)]:h-22 w-28 h-28 md:w-32 md:h-32 relative bg-neutral-800 rounded-full flex items-center justify-center cursor-pointer transition duration-200 hover:ring-2 hover:ring-green-500"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsModalOpen(true)}

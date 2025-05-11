@@ -9,7 +9,7 @@ export default function SettingToggle({ label, enabled, setEnabled }: SettingTog
 				onChange={setEnabled}
 				className={`${
 					enabled ? "bg-green-500" : "bg-gray-600"
-				} relative inline-flex h-6 w-11 items-center rounded-full transition`}
+				} relative inline-flex h-6 w-11 items-center rounded-full transition cursor-pointer`}
 			>
 				<span
 					className={`${

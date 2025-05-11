@@ -9,8 +9,7 @@ import toast from "react-hot-toast";
 import { supabase } from "../../../../lib/supabaseClient";
 import type { Session } from '@supabase/auth-helpers-nextjs';
 import { genderOptions, monthNames } from "../../../../features/constants/formOptions";
-
-
+import Loading from "../../../auth/loading/Loading";
 
 const currentYear = new Date().getFullYear();
 
@@ -36,6 +35,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function EditProfileForm() {
 	const [session, setSession] = useState<Session | null>(null);
+	const [loading, setLoading] = useState(true);
 	
   const {
     register,
@@ -91,6 +91,7 @@ export default function EditProfileForm() {
 	
 			if (!res.ok) {
 				console.error("Error loading profile");
+				setLoading(false);
 				return;
 			}
 	
@@ -107,11 +108,19 @@ export default function EditProfileForm() {
 				setValue("month", monthNames[parseInt(month) - 1]);
 				setValue("year", year);
 			}
+			setLoading(false);
 		};
 	
 		fetchProfile();
 	}, [session , setValue]);
 	
+	if (loading) {
+  return (
+    <div role="status" className="min-h-screen flex items-center justify-center">
+				<Loading/>
+    </div>
+  );
+}
 
 
   return (
