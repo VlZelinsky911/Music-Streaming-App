@@ -6,68 +6,70 @@ import SettingItem from "./SettingItem/SettingItem";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import toast from "react-hot-toast";
-import SettingModal from "./SettingModal";
 import Loading from "../../auth/loading/Loading";
-
+import DeleteModal from "./Modal/DeleteModal";
+import PasswordModal from "./Modal/PasswordModal";
 
 export default function SettingsPage({ user }: SettingProps) {
   const [explicitContent, setExplicitContent] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-	const [isPageLoading, setIsPageLoading] = useState(true); 
+  const [show2FA, setShow2FA] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
-	const router = useRouter();
+  const router = useRouter();
   const supabase = createClientComponentClient();
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setIsPageLoading(false);
-		}, 500);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsPageLoading(false);
+    }, 500);
 
-		return () => clearTimeout(timer);
-	}, []);
-
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleDeleteAccount = async () => {
-		try {
-			setLoading(true);
-	
-			const res = await fetch("/api/delete-account", {
-				method: "DELETE",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ userId: user?.id }),
-			});
-	
-			const data = await res.json();
-	
-			if (!res.ok) {
-				throw new Error(data.error || "Failed to delete account");
-			}
+    try {
+      setLoading(true);
 
-			await supabase.auth.signOut();
-			router.push("/");
+      const res = await fetch("/api/delete-account", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user?.id }),
+      });
 
-			toast.success("Account deleted successfully!");
-		} catch (error) {
-			console.error("Failed to delete account:", error);
-		} finally {
-			setLoading(false);
-		}
-	};
+      const data = await res.json();
 
-  const handleUpdate = async () => {
-    setIsOpen(true);
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to delete account");
+      }
+
+      await supabase.auth.signOut();
+      router.push("/");
+
+      toast.success("Account deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete account:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-	const handle2FAUpdate = () => {
-		router.push("legal/inProgress");
-	};
-	
+  const handleUpdate = async () => {
+    setShow2FA(true);
+  };
+  const handleChangePassword = async () => {
+    setShowPasswordModal(true);
+  };
 
-	if (!user || isPageLoading) return <Loading/>
+  const handle2FAUpdate = () => {
+    router.push("legal/inProgress");
+  };
+
+  if (!user || isPageLoading) return <Loading />;
 
   return (
     <>
@@ -94,15 +96,25 @@ export default function SettingsPage({ user }: SettingProps) {
           <SettingItem label="Email" value={user?.email || "Guest"} />
           <SettingItem label="Delete profile" handleUpdate={handleUpdate} />
           <SettingItem label="2FA" handle2FAUpdate={handle2FAUpdate} />
+          <SettingItem
+            label="Change password"
+            handleChangePassword={handleChangePassword}
+          />
         </div>
       </section>
 
-      {isOpen && (
-        <SettingModal
-          setIsOpen={setIsOpen}
+      {show2FA && (
+        <DeleteModal
+          setIsOpen={setShow2FA}
           loading={loading}
           handleDeleteAccount={handleDeleteAccount}
         />
+      )}
+
+      {showPasswordModal && (
+        <PasswordModal 
+				setShowPasswordModal={setShowPasswordModal} 
+				/>
       )}
     </>
   );

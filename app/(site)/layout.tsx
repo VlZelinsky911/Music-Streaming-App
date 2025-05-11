@@ -1,5 +1,5 @@
-import "../globals.css";
-import ToasterCustom from "../../components/auth/ToasterCustom/ToasterCustom";
+import "@/globals.css";
+import ToasterCustom from "@/../components/auth/ToasterCustom/ToasterCustom";
 import Providers from "@/providers/Providers";
 
 export const metadata = {
