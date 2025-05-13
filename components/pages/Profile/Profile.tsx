@@ -10,19 +10,7 @@ import Loading from "../../auth/loading/Loading";
 
 export default function ProfilePage() {
   const { username } = useSelector((state: RootState) => state.user);
-  const { loading, photo } = useUserAvatar();
-  const isLoading = loading || !username || !photo;
 
-  if (isLoading) {
-    return (
-      <div
-        role="status"
-        className="min-h-screen flex items-center justify-center"
-      >
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-black text-white flex">
