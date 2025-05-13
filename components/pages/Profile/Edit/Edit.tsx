@@ -10,6 +10,7 @@ import { supabase } from "../../../../lib/supabaseClient";
 import type { Session } from '@supabase/auth-helpers-nextjs';
 import { genderOptions, monthNames } from "../../../../features/constants/formOptions";
 import Loading from "../../../auth/loading/Loading";
+import { useRouter } from 'next/navigation';
 
 const currentYear = new Date().getFullYear();
 
@@ -36,6 +37,7 @@ type FormData = z.infer<typeof schema>;
 export default function EditProfileForm() {
 	const [session, setSession] = useState<Session | null>(null);
 	const [loading, setLoading] = useState(true);
+	const router = useRouter();
 	
   const {
     register,
@@ -75,6 +77,7 @@ export default function EditProfileForm() {
       console.error("Failed:", result.error);
     } else {
       toast.success("Profile saved!");
+			router.push("/profile");
     }
   };
 
@@ -249,7 +252,7 @@ export default function EditProfileForm() {
 
         <button
           type="submit"
-          className={`w-full py-3 rounded-full  text-white font-semibold  ${
+          className={`w-full py-3 rounded-full  text-white font-semibold cursor-pointer ${
     isValid
       ? 'bg-green-500 hover:bg-green-600 text-white'
       : 'bg-neutral-700 cursor-not-allowed text-white'

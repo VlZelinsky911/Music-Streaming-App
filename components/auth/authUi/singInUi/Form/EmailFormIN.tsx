@@ -34,7 +34,6 @@ export default function EmailForm() {
     resolver: zodResolver(schema),
   });
 
-  useProfileSetupOnLogin();
 
   const onSubmit = async (formData: FormData) => {
     setIsLoading(true);
