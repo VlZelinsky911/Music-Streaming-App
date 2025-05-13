@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import { supabase } from "../../../../lib/supabaseClient";
+import toast from "react-hot-toast";
 
 const schema = z
   .object({
@@ -29,9 +31,49 @@ export default function PasswordModal({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-  };
+
+const onSubmit = async (data: FormData) => {
+  const { currentPassword, newPassword } = data;
+
+  try {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user?.email) {
+      toast.error("User is not authenticated.");
+      return;
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: currentPassword,
+    });
+
+    if (signInError) {
+      toast.error("Incorrect current password.");
+      return;
+    }
+
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: newPassword,
+    });
+
+    if (updateError) {
+      toast.error("Failed to update password.");
+      return;
+    }
+
+    toast.success("Password updated successfully!");
+    setShowPasswordModal(false);
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong. Please try again.");
+  }
+};
+
+
 
   return (
     <div
