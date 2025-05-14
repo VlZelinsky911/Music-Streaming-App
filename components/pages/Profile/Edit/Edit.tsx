@@ -8,7 +8,7 @@ import { FiChevronDown } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { supabase } from "../../../../lib/supabaseClient";
 import type { Session } from '@supabase/auth-helpers-nextjs';
-import { genderOptions, monthNames } from "../../../../features/constants/formOptions";
+import { genderOptions, monthNames } from "../../../../features/constants/formOptions/formOptions";
 import Loading from "../../../auth/loading/Loading";
 import { useRouter } from 'next/navigation';
 

@@ -46,7 +46,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex items-center justify-between px-6 py-2 w-full bg-black text-white">
+    <header className="flex items-center justify-between px-6 py-1 w-full bg-black text-white">
       <div className="flex items-center gap-4 min-w-[150px]">
         <Link href="/">
           <Image

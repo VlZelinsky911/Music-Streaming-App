@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { HiOutlineSearch } from "react-icons/hi";
-import { HiOutlineInbox } from "react-icons/hi";
+import { MdHistory } from "react-icons/md";
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -34,7 +34,7 @@ export default function SearchBar() {
             <FaTrash className="text-base" />
           </button>
         ) : (
-          <HiOutlineInbox className="text-gray-400 w-5 h-5" />
+          <MdHistory className="text-gray-400 w-5 h-5" />
         )}
       </div>
     </div>

@@ -1,3 +1,4 @@
+import Main from "../../components/main/main";
 import Header from "../../components/header/header";
 
 export const metadata = {
@@ -10,8 +11,11 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <>
+    <div className="h-screen flex flex-col bg-black text-white overflow-hidden">
       <Header />
-    </>
+      <div className="flex-1 overflow-hidden">
+        <Main />
+      </div>
+    </div>
   );
 }

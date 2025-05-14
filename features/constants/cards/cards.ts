@@ -1,0 +1,17 @@
+export const cards = [
+  { title: "Music", color: "bg-pink-600" },
+  { title: "Podcasts", color: "bg-emerald-700" },
+  { title: "Events", color: "bg-purple-700" },
+  { title: "For You", color: "bg-blue-800" },
+  { title: "New Releases", color: "bg-orange-700" },
+  { title: "Hip-Hop", color: "bg-gray-600" },
+  { title: "Pop", color: "bg-red-600" },
+  { title: "Rock", color: "bg-yellow-700" },
+  { title: "Electronic", color: "bg-cyan-700" },
+  { title: "Jazz", color: "bg-indigo-700" },
+  { title: "Classical", color: "bg-lime-700" },
+  { title: "R&B", color: "bg-fuchsia-700" },
+  { title: "Reggae", color: "bg-green-800" },
+  { title: "Metal", color: "bg-slate-700" },
+  { title: "Country", color: "bg-amber-700" },
+];
