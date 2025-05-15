@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { HiOutlineSearch } from "react-icons/hi";
@@ -16,7 +17,6 @@ export default function SearchBar() {
           w-80
         `}
       >
-
         <HiOutlineSearch className="mr-3 text-gray-400 w-5 h-5" />
 
         <input
@@ -30,11 +30,19 @@ export default function SearchBar() {
         <div className="h-5 w-px bg-gray-600 mx-2" />
 
         {query ? (
-          <button onClick={() => setQuery("")} className="text-gray-400 hover:text-white">
+          <button
+            onClick={() => setQuery("")}
+            className="text-gray-400 hover:text-white"
+          >
             <FaTrash className="text-base" />
           </button>
         ) : (
-          <MdHistory className="text-gray-400 w-5 h-5" />
+          <Link href="/profile/history">
+            <MdHistory
+              className="text-gray-400 w-5 h-5 hover:text-white"
+              title="History"
+            />
+          </Link>
         )}
       </div>
     </div>
