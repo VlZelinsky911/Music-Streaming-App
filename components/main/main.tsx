@@ -20,16 +20,20 @@ export default function Main() {
 
       <main className="flex-1 m-2 bg-neutral-900 rounded-2xl flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto scroll-smooth -pr-1 px-6 py-8">
-        <h2 className="text-2xl font-bold mb-4">Explore All</h2>
-
+          <h2 className="text-2xl font-bold mb-4">Browse all</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 pb-8">
-            {cards.map(({ title, color }) => (
+            {cards.map(({ title, color, img }) => (
               <div
                 key={title}
-                className={`relative rounded-xl ${color} p-4 h-36 flex flex-col justify-start shadow-md active:scale-95 transition-transform cursor-pointer`}
+                className={`relative rounded-xl ${color} p-4 h-36 flex flex-col justify-start shadow-md active:scale-95 transition-transform cursor-pointer overflow-hidden`}
               >
                 <h3 className="text-lg font-bold z-10">{title}</h3>
+                <img
+                  src={img}
+                  alt={title}
+                  className="w-24 h-24 sm:w-26 sm:h-26 absolute -bottom-1 -right-0"
+                />
               </div>
             ))}
           </div>
@@ -38,5 +42,3 @@ export default function Main() {
     </div>
   );
 }
-
-
