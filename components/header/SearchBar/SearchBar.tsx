@@ -37,7 +37,7 @@ export default function SearchBar() {
             <FaTrash className="text-base" />
           </button>
         ) : (
-          <Link href="/profile/history">
+          <Link href="/history">
             <MdHistory
               className="text-gray-400 w-5 h-5 hover:text-white"
               title="History"
