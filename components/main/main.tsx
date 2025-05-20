@@ -1,6 +1,7 @@
 import React from "react";
 import { sidebarSections } from "../../features/constants/sidebarSections/sidebarSections";
 import { cards } from "../../features/constants/cards/cards";
+import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
 
 export default function Main() {
   return (
@@ -17,10 +18,13 @@ export default function Main() {
           </div>
         ))}
       </aside>
+      <main className="flex-1 m-2   flex flex-col overflow-hidden">
+        <div className="p-4 mb-5 md:hidden bg-neutral-900 rounded-2xl">
+          <SearchBarMobile />
+        </div>
 
-      <main className="flex-1 m-2 bg-neutral-900 rounded-2xl flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto scroll-smooth -pr-1 px-6 py-8">
-          <h2 className="text-2xl font-bold mb-4">Browse all</h2>
+        <div className="flex-1 overflow-y-auto scroll-smooth -pr-1 p-6 bg-neutral-900 rounded-2xl">
+          <h2 className="text-2xl font-bold mb-4">Browse All</h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 pb-8">
             {cards.map(({ title, color, img }) => (
