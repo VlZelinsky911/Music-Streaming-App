@@ -18,8 +18,8 @@ export default function Main() {
           </div>
         ))}
       </aside>
-      <main className="flex-1 m-2   flex flex-col overflow-hidden">
-        <div className="p-4 mb-5 md:hidden bg-neutral-900 rounded-2xl">
+      <main className="flex-1 m-2 flex flex-col overflow-hidden">
+        <div className="p-4 mb-5 sm:hidden bg-neutral-900 rounded-2xl">
           <SearchBarMobile />
         </div>
 

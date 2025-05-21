@@ -1,4 +1,5 @@
 import React from 'react'
+import History from '../../../../components/pages/History/History';
 
 export const metadata = {
   title: "Wavely - Listening history",
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 export default function HistoryPage() {
-	return (
-		<div>HistoryPage</div>
-	)
+  return (
+    <History/>
+  )
 }
