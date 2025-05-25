@@ -1,7 +1,9 @@
 import React from "react";
 import { sidebarSections } from "../../features/constants/sidebarSections/sidebarSections";
-import { cards } from "../../features/constants/cards/cards";
 import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
+import MixCard from "./MixCards/MixCards";
+import Genres from "./Genres/Genres";
+import Cards from "./Cards/Cards";
 
 export default function Main() {
   return (
@@ -23,24 +25,15 @@ export default function Main() {
           <SearchBarMobile />
         </div>
 
-        <div className="flex-1 overflow-y-auto scroll-smooth -pr-1 p-6 bg-neutral-900 rounded-2xl">
+        <div className="flex-1 overflow-y-auto  -pr-1 p-6 bg-neutral-900 rounded-2xl">
           <h2 className="text-2xl font-bold mb-4">Browse All</h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 pb-8">
-            {cards.map(({ title, color, img }) => (
-              <div
-                key={title}
-                className={`relative rounded-xl ${color} p-4 h-36 flex flex-col justify-start shadow-md active:scale-95 transition-transform cursor-pointer overflow-hidden`}
-              >
-                <h3 className="text-lg font-bold z-10">{title}</h3>
-                <img
-                  src={img}
-                  alt={title}
-                  className="w-24 h-24 sm:w-26 sm:h-26 absolute -bottom-1 -right-0"
-                />
-              </div>
-            ))}
-          </div>
+					<MixCard/>
+
+					<Cards title="New releases"/>
+					<Cards title="Trending"/>
+
+					<Genres/>
         </div>
       </main>
     </div>
