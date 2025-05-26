@@ -8,7 +8,7 @@ export default function MixCard() {
 			{mixCards.map((item, index) => (
 				<div
 					key={index}
-					className="bg-neutral-800 hover:bg-neutral-700 duration-200 rounded-lg flex items-center p-2 active:scale-95 transition-transform cursor-pointer" 
+					className="bg-neutral-800 border border-zinc-700 hover:bg-neutral-700 duration-200 rounded-lg flex items-center p-2 active:scale-95 transition-transform cursor-pointer" 
 				>
 					<Image
 						width={14}

@@ -9,9 +9,9 @@ export const metadata = {
 };
 
 export default function ProfilePage() {
-	return (
-		<>
-			<Profile/>
-		</>
-	);
+  return (
+    <>
+      <Profile />
+    </>
+  );
 }
