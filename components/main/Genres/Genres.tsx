@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Genres() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 pb-8">
+    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 pb-8">
       {genres.map(({ title, color, img }) => (
         <div
           key={title}
@@ -16,7 +16,7 @@ export default function Genres() {
 						height={24}
             src={img}
             alt={title}
-            className="w-24 h-24 sm:w-26 sm:h-26 absolute -bottom-1 -right-0"
+            className="w-24 h-24 absolute -bottom-1 -right-0"
           />
         </div>
       ))}
