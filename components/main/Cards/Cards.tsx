@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { genres } from "../../../features/constants/genres/genres";
 import Image from "next/image";
 import { covers } from "../../../features/constants/covers/covers";
 
@@ -14,7 +13,8 @@ export default function Cards({ title }: Pick<Track, "title">) {
       </div>
 
       <div className="flex  gap-4 overflow-x-auto scrollbar-hide">
-        {covers.map((track) => (
+        
+				{covers.map((track) => (
           <div key={track.title} className="w-[120px] flex-shrink-0">
             <Image
               width={60}
