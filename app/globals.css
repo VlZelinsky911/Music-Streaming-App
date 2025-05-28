@@ -35,3 +35,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #22c55e;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             
+}
+
+

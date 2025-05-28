@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { genres } from "../../../features/constants/genres/genres";
 import Image from "next/image";
+import { covers } from "../../../features/constants/covers/covers";
 
 export default function Cards({ title }: Pick<Track, "title">) {
   return (
@@ -13,20 +14,17 @@ export default function Cards({ title }: Pick<Track, "title">) {
       </div>
 
       <div className="flex  gap-4 overflow-x-auto scrollbar-hide">
-        {genres.map((track) => (
-          <div
-            key={track.title}
-            className="min-w-[60px] flex-shrink-0"
-          >
+        {covers.map((track) => (
+          <div key={track.title} className="w-[120px] flex-shrink-0">
             <Image
               width={60}
               height={60}
-              src={track.img}
+              src={track.image}
               alt={track.title}
-              className="w-full h-auto rounded-lg mb-2"
+              className="w-[120px] h-[120px] object-cover rounded-lg mb-2 transition-transform duration-300 hover:scale-95"
             />
             <h3 className="font-semibold truncate">{track.title}</h3>
-            <p className="text-sm text-gray-400 truncate">{track.color}</p>
+            <p className="text-sm text-gray-400 truncate">{track.artist}</p>
           </div>
         ))}
       </div>

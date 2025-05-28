@@ -46,7 +46,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex items-center justify-between px-6 py-1 w-full bg-black text-white">
+    <header className="flex items-center justify-between px-6 py-1 w-full bg-black text-white md:hidden">
       <div className="flex items-center gap-4 min-w-[150px]">
         <Link href="/">
           <Image
@@ -57,12 +57,6 @@ export default function Header() {
             height={40}
           />
         </Link>
-
-        {!isLoggedIn && (
-          <div className="hidden sm:flex">
-            <SearchBar />
-          </div>
-        )}
       </div>
 
       <div className="md:hidden flex items-center">
@@ -79,22 +73,6 @@ export default function Header() {
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
-
-      <div className="ml-4 hidden lg:block">
-        {isLoggedIn ? <Navigation /> : <div className="flex-1" />}
-      </div>
-
-      <div className="hidden md:flex items-center min-w-[200px] justify-end gap-6 text-sm font-medium">
-        <Link href="#" className="hover:underline">
-          Premium
-        </Link>
-        <Link href="https://t.me/wawelySupport" target="_blank" className="hover:underline">
-          Support
-        </Link>
-        <span className="text-gray-600">|</span>
-
-        <UserMenu />
-      </div>
     </header>
   );
 }

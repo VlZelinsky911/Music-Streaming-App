@@ -9,27 +9,26 @@ import Artist from "./Artist/Artist";
 
 export default function Main() {
   return (
-    <div className="flex h-full bg-black text-white overflow-hidden">
-      <Sidebar/>
+    <div className="flex h-full bg-neutral-900 text-white overflow-hidden">
+      <Sidebar />
 
-      <main className="flex-1 mb-2 mx-2 flex flex-col overflow-hidden">
+      <main className="flex-1 flex flex-col overflow-hidden">
         <div className="p-4 mb-5 sm:hidden bg-neutral-900 rounded-2xl">
           <SearchBarMobile />
         </div>
 
         <div className="flex-1 overflow-y-auto -pr-1 p-6 bg-neutral-900 rounded-2xl">
-          <Greeting/>
+          <Greeting />
 
-					<MixCard/>
+          <MixCard />
 
-					<Artist title="Popular artists"/>
+          <Artist title="Popular artists" />
 
-					<Cards title="New releases"/>
-					<Cards title="You top mixed"/>
-					<Cards title="Uniquely yours"/>
-					
-
-					<Genres/>
+          <Cards title="New releases" />
+          <Cards title="You top mixed" />
+          <Cards title="Uniquely yours" />
+          <Cards title="Jump back in" />
+          <Cards title="Just the hits" />
         </div>
       </main>
     </div>

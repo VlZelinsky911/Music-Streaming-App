@@ -17,9 +17,8 @@ export default function UserMenu() {
       } = await supabase.auth.getUser();
       setUser(user);
     };
-
     getUser();
-  }, [supabase]);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,52 +40,48 @@ export default function UserMenu() {
 
   if (!user) {
     return (
-      <>
-        <Link href="/sign-up" className="hover:underline">
+      <div className="flex gap-2 items-center">
+        <Link href="/sign-up" className="hover:underline text-white/90">
           Sign up
         </Link>
         <Link href="/sign-in">
-          <button className="bg-white text-black px-4 py-1.5 rounded-full hover:bg-gray-200 transition cursor-pointer">
+          <button className="bg-[#1DB954] text-black px-4 py-1.5 rounded-full hover:bg-[#1ed760] transition cursor-pointer font-semibold">
             Sign in
           </button>
         </Link>
-      </>
+      </div>
     );
   }
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className="relative w-12 h-12 cursor-pointer group">
-
-        <div className="absolute inset-0 rounded-full bg-[#1a1a1a] transition duration-300 group-hover:scale-105 group-hover:shadow-md" />
-
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative w-9 h-9 flex items-center justify-center cursor-pointer bg-green-500 rounded-full text-black font-bold m-auto top-1.5 
-               transition duration-300 transform group-hover:scale-105 group-hover:shadow-lg group-hover:bg-green-600"
-        >
+      <button
+        onClick={() => setMenuOpen((v) => !v)}
+        className="w-11 h-11 flex items-center justify-center bg-gradient-to-tr from-[#1DB954] to-[#1ed760] text-black font-bold rounded-full border-2 border-[#191414] shadow-lg transition duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#1DB954]"
+        aria-label="User menu"
+      >
+        <span className="text-lg select-none">
           {getInitial(user.email || user.user_metadata?.name)}
-        </button>
-      </div>
-
+        </span>
+      </button>
       {menuOpen && (
-        <div className="absolute right-0 mt-2 py-2 px-1 w-40 bg-[#282828] text-[#DFDFDF] rounded-lg shadow-lg z-50">
+        <div className="absolute right-0 mt-3 py-2 w-48 bg-[#191414] bg-opacity-95 backdrop-blur-md text-white rounded-xl shadow-2xl z-50 border border-[#222] transition-all duration-200 animate-fade-in">
           <Link
             href="/profile"
-            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
+            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium"
           >
             Profile
           </Link>
           <Link
             href="/settings"
-            className="block px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
+            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium"
           >
             Settings
           </Link>
-          <div className="my-2 border-t border-[#444]" />
+          <div className="my-2 border-t border-[#333]" />
           <button
             onClick={handleLogout}
-            className="block w-full text-left px-4 py-2 hover:bg-[#3a3a3a] hover:underline transition duration-150 rounded-md active:scale-95"
+            className="block w-full text-left px-5 py-2 hover:bg-neutral-800 hover:text-red-500 rounded-lg transition font-medium"
           >
             Logout
           </button>

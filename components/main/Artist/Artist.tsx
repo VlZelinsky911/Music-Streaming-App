@@ -1,32 +1,30 @@
 import Link from "next/link";
-import { genres } from "../../../features/constants/genres/genres";
 import Image from "next/image";
 import { artists } from "../../../features/constants/artists/artists";
-
 export default function Artist({ title }: Pick<Track, "title">) {
   return (
     <section className="mt-4 mb-8 bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700">
-      <div className="flex justify-between items-center mb-4 px-2">
+      <div className="flex justify-between items-center mb-6 px-2">
         <h2 className="text-xl font-bold">{title}</h2>
         <Link href="/" className="text-sm text-gray-400 hover:underline">
           Show all
         </Link>
       </div>
-
-      <div className="flex  gap-4 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-6 overflow-x-auto scrollbar scrollbar-hide pb-2">
         {artists.map((artist) => (
           <div
-            key={artist.name}
-            className="max-w-[160px] flex-shrink-0"
+            key={artist.id}
+            className="min-w-[180px] flex-shrink-0 group cursor-pointer"
           >
-            <Image
-              width={16}
-              height={16}
-              src={artist.image}
-              alt={artist.name}
-              className="w-full h-auto rounded-[50%] mb-2"
-            />
-            <h3 className="font-semibold truncate">{artist.name}</h3>
+            <div className="relative w-[180px] h-[180px] mb-3">
+              <Image
+                src={artist.image}
+                alt={artist.name}
+                fill
+                className="rounded-full object-cover transition-transform duration-300 group-hover:scale-95"
+              />
+            </div>
+            <h3 className="font-semibold truncate text-base">{artist.name}</h3>
             <p className="text-sm text-gray-400 truncate">Artist</p>
           </div>
         ))}
