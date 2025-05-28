@@ -1,8 +1,8 @@
 export const mixCards = [
-  { title: "Chill Mix", image: "/covers/chill.svg" },
-  { title: "Pop Mix", image: "/covers/pop.svg" },
-  { title: "Daily Mix 1", image: "/covers/daily.svg" },
-  { title: "Daily Mix 5", image: "/covers/daily5.svg" },
-  { title: "Folk & Acoustic Mix", image: "/covers/folk.svg" },
-  { title: "Daily Mix 4", image: "/covers/daily4.svg" },
+  { title: "Chill Mix", image: "/mixes/chill.svg" },
+  { title: "Pop Mix", image: "/mixes/pop.svg" },
+  { title: "Daily Mix 1", image: "/mixes/daily.svg" },
+  { title: "Daily Mix 5", image: "/mixes/daily5.svg" },
+  { title: "Folk & Acoustic Mix", image: "/mixes/folk.svg" },
+  { title: "Daily Mix 4", image: "/mixes/daily4.svg" },
 ];

@@ -8,7 +8,7 @@ export default function SearchBar() {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="bg-black w-full flex items-center justify-center">
+    <div className="h-12 w-full flex items-center px-6">
       <div
         className={`
           flex items-center px-4 py-2 rounded-full

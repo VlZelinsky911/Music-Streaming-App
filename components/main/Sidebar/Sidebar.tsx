@@ -1,16 +1,23 @@
 import { Home, Search, Library, Plus, Heart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const sidebarItems = [
   { icon: <Home size={20} />, label: "Home", href: "/" },
-  { icon: <Search size={20} />, label: "Search", href: "/search", active: true },
+  {
+    icon: <Search size={20} />,
+    label: "Search",
+    href: "/search",
+    active: true,
+  },
   { icon: <Library size={20} />, label: "Your Library", href: "/library" },
 ];
 
 export default function Sidebar() {
   return (
-    <aside className="hidden md:flex flex-col mb-2 mx-2 w-64 bg-neutral-900 text-white py-6 px-4 space-y-6 rounded-2xl">
+    <aside className="hidden md:flex flex-col w-64 bg-neutral-900 text-white py-6 px-4 space-y-6 border-r border-neutral-800">
       <nav className="space-y-4">
+        
         {sidebarItems.map(({ icon, label, href, active }) => (
           <Link
             key={label}

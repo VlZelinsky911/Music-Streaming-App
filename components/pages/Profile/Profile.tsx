@@ -5,8 +5,6 @@ import ProfilPhoto from "./ProfilPhoto/ProfilPhoto";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
-import { useUserAvatar } from "../../../hooks/useUserAvatar";
-import Loading from "../../auth/loading/Loading";
 
 export default function ProfilePage() {
   const { username } = useSelector((state: RootState) => state.user);
