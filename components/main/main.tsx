@@ -1,11 +1,12 @@
 import React from "react";
 import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
 import MixCard from "./MixCards/MixCards";
-import Genres from "./Genres/Genres";
+import Genres from "../searchPage/Genres/Genres";
 import Cards from "./Cards/Cards";
 import Sidebar from "./Sidebar/Sidebar";
 import Greeting from "./Greeting/Greeting";
 import Artist from "./Artist/Artist";
+import ScrollableRow from "./ScrollableRow/ScrollableRow";
 
 export default function Main() {
   return (
@@ -21,10 +22,12 @@ export default function Main() {
           <Greeting />
 
           <MixCard />
-
-          <Artist title="Popular artists" />
-
-          <Cards title="New releases" />
+          <ScrollableRow>
+            <Artist title="Popular artists" />
+          </ScrollableRow>
+          <ScrollableRow>
+            <Cards title="New releases" />
+          </ScrollableRow>
           <Cards title="You top mixed" />
           <Cards title="Uniquely yours" />
           <Cards title="Jump back in" />
