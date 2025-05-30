@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { covers } from "../../../features/constants/covers/covers";
+import ScrollableRow from "../ScrollableRow/ScrollableRow";
 
 export default function Cards({ title }: Pick<Track, "title">) {
   return (
+		<ScrollableRow>
     <section className="mt-4 mb-8 bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700">
       <div className="flex justify-between items-center mb-4 px-2">
         <h2 className="text-xl font-bold">{title}</h2>
@@ -12,7 +14,7 @@ export default function Cards({ title }: Pick<Track, "title">) {
         </Link>
       </div>
 
-      <div className="flex  gap-4 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-4 overflow-x-auto scrollbar-hide">
         
 				{covers.map((track) => (
           <div key={track.title} className="w-[120px] flex-shrink-0">
@@ -21,7 +23,7 @@ export default function Cards({ title }: Pick<Track, "title">) {
               height={60}
               src={track.image}
               alt={track.title}
-              className="w-[120px] h-[120px] object-cover rounded-lg mb-2 transition-transform duration-300 hover:scale-95"
+              className="w-[120px] h-[120px] object-cover rounded-lg mb-2 transition-transform duration-300 hover:scale-95 cursor-pointer"
             />
             <h3 className="font-semibold truncate">{track.title}</h3>
             <p className="text-sm text-gray-400 truncate">{track.artist}</p>
@@ -29,5 +31,6 @@ export default function Cards({ title }: Pick<Track, "title">) {
         ))}
       </div>
     </section>
+		</ScrollableRow>
   );
 }

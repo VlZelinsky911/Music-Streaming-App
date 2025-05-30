@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { artists } from "../../../features/constants/artists/artists";
 import ScrollableRow from "../ScrollableRow/ScrollableRow";
+import { useState } from "react";
+
 export default function Artist({ title }: Pick<Track, "title">) {
+  const [hoveredArtistId, setHoveredArtistId] = useState<number | null>(null);
+
   return (
     <ScrollableRow>
       <section className="mt-4 mb-8 bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700">
@@ -17,20 +23,26 @@ export default function Artist({ title }: Pick<Track, "title">) {
             <Link
               key={artist.id}
               href={`/artist/${artist.id}`}
-              className="min-w-[150px] flex-shrink-0 group cursor-pointer active:scale-95 transition-transform bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700"
+              className="min-w-[150px] flex-shrink-0 cursor-pointer active:scale-95 transition-transform bg-[#1E1E1E]/80 p-4 rounded-xl border border-zinc-700 hover:bg-[#2a2a2a]"
+              onMouseEnter={() => setHoveredArtistId(artist.id)}
+              onMouseLeave={() => setHoveredArtistId(null)}
             >
-              <div className="relative w-[145px] h-[145px]">
+              <div className="relative w-[140px] h-[140px]">
                 <Image
                   src={artist.image}
                   alt={artist.name}
                   fill
-                  className="rounded-full object-cover transition-transform duration-300 group-hover:scale-95"
+                  className="rounded-full object-cover"
                 />
 
                 <Image
                   src="play_green_hover.svg"
                   alt="play_green_hover"
-                  className="absolute bottom-2 right-2 w-14 h-14 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg"
+                  className={`absolute bottom-2 right-2 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
+                    hoveredArtistId === artist.id
+                      ? "opacity-100 scale-100"
+                      : "opacity-0 scale-95"
+                  }`}
                   width={20}
                   height={20}
                 />
