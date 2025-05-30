@@ -25,6 +25,7 @@ export default function Main() {
           <ScrollableRow>
             <Artist title="Popular artists" />
           </ScrollableRow>
+					
           <ScrollableRow>
             <Cards title="New releases" />
           </ScrollableRow>
