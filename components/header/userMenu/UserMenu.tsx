@@ -81,7 +81,7 @@ export default function UserMenu() {
           <div className="my-2 border-t border-[#333]" />
           <button
             onClick={handleLogout}
-            className="block w-full text-left px-5 py-2 hover:bg-neutral-800 hover:text-red-500 rounded-lg transition font-medium"
+            className="block w-full text-left text-red-400 px-5 py-2 hover:bg-neutral-800 hover:text-red-500 rounded-lg transition font-medium"
           >
             Logout
           </button>

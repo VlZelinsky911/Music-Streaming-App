@@ -22,13 +22,11 @@ export default function Main() {
           <Greeting />
 
           <MixCard />
-          <ScrollableRow>
-            <Artist title="Popular artists" />
-          </ScrollableRow>
-					
-          <ScrollableRow>
-            <Cards title="New releases" />
-          </ScrollableRow>
+
+          <Artist title="Popular artists" />
+
+          <Cards title="New releases" />
+
           <Cards title="You top mixed" />
           <Cards title="Uniquely yours" />
           <Cards title="Jump back in" />
