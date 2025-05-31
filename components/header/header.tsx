@@ -10,32 +10,12 @@ import { supabase } from "../../lib/supabaseClient";
 import Loading from "../auth/loading/Loading";
 import { Menu, X } from "lucide-react";
 import MobileMenu from "./MobileMenu/MobileMenu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const { data: user, error } = await supabase.auth.getUser();
-        if (error) {
-          console.error("Error getting user: ", error.message);
-          setIsLoggedIn(false);
-        } else {
-          setIsLoggedIn(!!user);
-        }
-      } catch (err) {
-        console.error("Error in useEffect:", err);
-        setIsLoggedIn(false);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getUser();
-  }, []);
+  const loading = useSelector((state: RootState) => state.auth.loading);
 
   if (loading) {
     return (
@@ -62,7 +42,7 @@ export default function Header() {
       <div className="md:hidden flex items-center">
         <button
           className="text-white active:scale-95"
-					data-testid="menu-button"
+          data-testid="menu-button"
           onClick={() => setIsMobileMenuOpen(true)}
         >
           <Menu size={28} />

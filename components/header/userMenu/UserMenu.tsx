@@ -68,20 +68,20 @@ export default function UserMenu() {
         <div className="absolute right-0 mt-3 py-2 w-48 bg-[#191414] bg-opacity-95 backdrop-blur-md text-white rounded-xl shadow-2xl z-50 border border-[#222] transition-all duration-200 animate-fade-in">
           <Link
             href="/profile"
-            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium"
+            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium active:scale-95"
           >
             Profile
           </Link>
           <Link
             href="/settings"
-            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium"
+            className="block px-5 py-2 hover:bg-neutral-800 rounded-lg transition font-medium active:scale-95"
           >
             Settings
           </Link>
           <div className="my-2 border-t border-[#333]" />
           <button
             onClick={handleLogout}
-            className="block w-full text-left text-red-400 px-5 py-2 hover:bg-neutral-800 hover:text-red-500 rounded-lg transition font-medium"
+            className="block w-full text-left text-red-400 px-5 py-2 hover:bg-neutral-800 hover:text-red-500 rounded-lg transition font-medium active:scale-95"
           >
             Logout
           </button>

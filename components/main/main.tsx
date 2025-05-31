@@ -1,12 +1,10 @@
 import React from "react";
 import SearchBarMobile from "./SearchBarMobile/SearchBarMobile";
 import MixCard from "./MixCards/MixCards";
-import Genres from "../searchPage/Genres/Genres";
 import Cards from "./Cards/Cards";
 import Sidebar from "./Sidebar/Sidebar";
 import Greeting from "./Greeting/Greeting";
 import Artist from "./Artist/Artist";
-import ScrollableRow from "./ScrollableRow/ScrollableRow";
 
 export default function Main() {
   return (

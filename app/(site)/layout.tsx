@@ -1,6 +1,9 @@
 import "@/globals.css";
 import ToasterCustom from "@/../components/auth/ToasterCustom/ToasterCustom";
 import Providers from "@/providers/Providers";
+import Player from "../../components/player/player";
+import PlayerWrapper from "../../components/player/PlayerWrapper/PlayerWrapper";
+import AuthLoader from "../../components/auth/AuthLoader/AuthLoader";
 
 export const metadata = {
   title: "Wavely",
@@ -19,8 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <ToasterCustom />
           {children}
+					<ToasterCustom />
+					<PlayerWrapper/>
+					 <AuthLoader />
         </Providers>
       </body>
     </html>

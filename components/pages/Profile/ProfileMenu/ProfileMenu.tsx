@@ -2,17 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { Pencil } from "lucide-react";
 
 const ProfileMenu = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-	const [copied, setCopied] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-	const {userId } = useSelector((state: RootState) => state.user);
+  const { userId } = useSelector((state: RootState) => state.user);
 
   const copyProfileUrl = () => {
     const url = `${window.location.origin}/user/${userId}`;
     navigator.clipboard.writeText(url).then(() => {
-			setCopied(true);
+      setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   };
@@ -36,12 +37,12 @@ const ProfileMenu = () => {
   }, [menuOpen]);
 
   return (
-    <div className="p-8">
+    <div>
       <button
         onClick={() => setMenuOpen(!menuOpen)}
-        className="text-white text-3xl hover:text-gray-400 active:scale-90 transition-transform duration-100 cursor-pointer"
+        className="ml-2 p-1 rounded-full bg-white/10 hover:bg-white/20 transition duration-200 ease-in-out active:scale-95 cursor-pointer"
       >
-        ⋯
+        <Pencil className="w-4 h-4 text-white" />
       </button>
 
       {menuOpen && (
