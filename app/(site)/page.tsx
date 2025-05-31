@@ -1,5 +1,6 @@
 import Main from "../../components/main/main";
 import Header from "../../components/header/header";
+import Player from "../../components/player/palyer";
 
 export const metadata = {
   title: "Wavely",
@@ -16,6 +17,7 @@ export default function Home() {
       <div className="flex-1 overflow-hidden">
         <Main />
       </div>
+			<Player/>
     </div>
   );
 }
