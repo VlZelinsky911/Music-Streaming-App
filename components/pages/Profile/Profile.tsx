@@ -5,98 +5,171 @@ import ProfilPhoto from "./ProfilPhoto/ProfilPhoto";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
+import { Twitter } from "lucide-react";
+import { FaGithub, FaTelegramPlane } from "react-icons/fa";
+
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { username } = useSelector((state: RootState) => state.user);
+  
+  const stats = [
+    { label: "Playlists", value: 12 },
+    { label: "Followers", value: 34 },
+    { label: "Following", value: 7 },
+    { label: "Liked Songs", value: 56 },
+  ];
 
+  const recentlyPlayed = [
+    {
+      title: "Shape of You",
+      artist: "Ed Sheeran",
+      cover: "/covers/cover1.svg",
+    },
+    {
+      title: "Blinding Lights",
+      artist: "The Weeknd",
+      cover: "/covers/cover2.svg",
+    },
+    { title: "Levitating", artist: "Dua Lipa", cover: "/covers/cover3.svg" },
+  ];
 
   return (
-    <div className="min-h-screen bg-black text-white flex">
-      <div className="hidden md:block w-1/3 bg-neutral-900 p-6 space-y-6 ">
-        <h2 className="text-xl font-bold mb-4">Your Library</h2>
-        <div className="bg-neutral-800 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">
-            Create your first playlist
-          </h3>
-          <p className="text-sm text-gray-400 mb-3">
-            It's easy, we'll help you.
-          </p>
-          <button className="bg-white text-black rounded-full px-4 py-2">
-            Create Playlist
-          </button>
-        </div>
-        <div className="bg-neutral-800 p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Browse some podcasts</h3>
-          <p className="text-sm text-gray-400 mb-3">
-            We'll keep you updated on new episodes.
-          </p>
-          <button className="bg-white text-black rounded-full px-4 py-2">
-            Browse Podcasts
-          </button>
-        </div>
-      </div>
-
-      <div className="w-full md:w-2/3 flex flex-col">
-        <div className="bg-gradient-to-b from-neutral-800 to-black p-8">
+    <div className="min-h-screen bg-black text-white flex flex-col">
+      <div className="w-full flex justify-center">
+        <div className="w-full bg-gradient-to-b from-green-500/80 to-black p-8 rounded-b-3xl shadow-lg mb-6">
           <div className="flex items-center space-x-6">
             <ProfilPhoto />
             <div>
-              <p className="text-sm uppercase">Profile</p>
+              <div className="flex items-center gap-2">
+                <p className="text-sm uppercase text-white/70">Profile</p>
+
+                <ProfileMenu />
+              </div>
               <h1 className="text-2xl md:text-4xl font-bold">
                 {username || "Guest"}
               </h1>
             </div>
           </div>
         </div>
-
-        <ProfileMenu />
-
-        <footer className="flex-grow bg-neutral-950 text-gray-400 text-sm p-6">
-          <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:gap-4">
-            <div>
-              <h3 className="text-sm sm:text-base text-white font-bold mb-2">
-                Company
-              </h3>
-              <ul className="text-sm sm:text-base">
-                <li>About</li>
-                <li>Jobs</li>
-                <li>For the Record</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm sm:text-base text-white font-bold mb-2">
-                Communities
-              </h3>
-              <ul className="text-sm sm:text-base">
-                <li>For Artists</li>
-                <li>For Developers</li>
-                <li>For Advertisers</li>
-                <li>For Investors</li>
-                <li>For Vendors</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm sm:text-base text-white font-bold mb-2">
-                Useful Links
-              </h3>
-              <ul className="text-sm sm:text-base">
-                <li>Support</li>
-                <li>Free Mobile App</li>
-              </ul>
-            </div>
-            <div className="hidden sm:block">
-              <h3 className="text-white font-bold mb-2">Wawely Plans</h3>
-              <ul>
-                <li>Premium Individual</li>
-                <li>Premium Duo</li>
-                <li>Premium Family</li>
-                <li>Premium Student</li>
-                <li>Spotify Free</li>
-              </ul>
-            </div>
-          </div>
-        </footer>
       </div>
+
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-4xl flex justify-around mb-8">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-2xl font-bold">{stat.value}</div>
+              <div className="text-xs text-gray-400">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-4xl mb-8">
+          <h2 className="text-xl font-semibold mb-4">Recently Played</h2>
+          <div className="flex gap-4 overflow-x-auto">
+            {recentlyPlayed.map((track) => (
+              <div
+                key={track.title}
+                className="bg-neutral-900 rounded-lg p-3 flex flex-col items-center min-w-[120px] hover:scale-95 transition"
+              >
+                <img
+                  src={track.cover}
+                  alt={track.title}
+                  className="w-20 h-20 rounded mb-2 shadow"
+                />
+                <div className="text-sm font-medium truncate">
+                  {track.title}
+                </div>
+                <div className="text-xs text-gray-400 truncate">
+                  {track.artist}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex-grow" />
+
+      <footer className="w-full relative mt-8">
+        <div className="absolute -top-8 left-0 w-full overflow-hidden leading-none">
+          <svg
+            viewBox="0 0 1200 80"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-16"
+          >
+            <path
+              d="M0 40 Q 300 80 600 40 T 1200 40 V80 H0 V40Z"
+              fill="#18181b"
+              opacity="0.8"
+            />
+          </svg>
+        </div>
+
+        <div className="relative z-10 bg-neutral-950 bg-opacity-95 backdrop-blur-md text-gray-400 text-sm py-8">
+          <div className="max-w-6xl mx-auto flex flex-col items-center gap-6">
+            <div className="text-lg font-semibold text-white mb-2">
+              Let the music play!
+            </div>
+
+            <div className="flex gap-6 mb-2">
+              <Link
+                href="#"
+                className="hover:text-green-400 transition"
+                aria-label="Instagram"
+              >
+                <FaGithub className="w-6 h-6" />
+              </Link>
+              <Link
+                href="#"
+                className="hover:text-green-400 transition"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-6 h-6" />
+              </Link>
+              <Link
+                href="#"
+                className="hover:text-green-400 transition"
+                aria-label="Youtube"
+              >
+                <FaTelegramPlane className="w-6 h-6" />
+              </Link>
+            </div>
+
+            <div className="flex gap-8 mb-2">
+              <Link
+                href="/legal/privacy"
+                className="hover:text-white transition"
+              >
+                Privacy Policy
+              </Link>
+              <Link href="/legal/terms" className="hover:text-white transition">
+                Terms of Service
+              </Link>
+              <a
+                href="mailto:support@wawely.com"
+                className="hover:text-white transition"
+              >
+                Contact Us
+              </a>
+            </div>
+
+            <div className="text-xs text-gray-500 text-center">
+              © {new Date().getFullYear()} Wawely. All rights reserved.
+            </div>
+
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="mt-2 px-4 py-1 rounded-full bg-green-600/80 text-white text-xs font-semibold hover:bg-green-500 transition"
+            >
+              Back to top
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
