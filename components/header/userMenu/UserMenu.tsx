@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../../../lib/supabaseClient";
+import { ChevronDown } from "lucide-react";
 
 export default function UserMenu() {
   const [user, setUser] = useState<User | null>(null);
@@ -57,12 +58,22 @@ export default function UserMenu() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setMenuOpen((v) => !v)}
-        className="w-11 h-11 flex items-center justify-center bg-gradient-to-tr from-[#1DB954] to-[#1ed760] text-black font-bold rounded-full border-2 border-[#191414] shadow-lg transition duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#1DB954]"
+        className="flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#191414] text-white hover:bg-neutral-800 transition cursor-pointer group"
         aria-label="User menu"
       >
-        <span className="text-lg select-none">
-          {getInitial(user.email || user.user_metadata?.name)}
+        <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#1DB954] to-[#1ed760] flex items-center justify-center text-black font-bold overflow-hidden">
+          <span className="text-sm select-none">
+            {getInitial(user.email || user.user_metadata?.name)}
+          </span>
+        </div>
+        <span className="text-sm font-semibold truncate max-w-[100px]">
+          {user.email?.split("@")[0] || "User"}
         </span>
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-200 ${
+            menuOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
       {menuOpen && (
         <div className="absolute right-0 mt-3 py-2 w-48 bg-[#191414] bg-opacity-95 backdrop-blur-md text-white rounded-xl shadow-2xl z-50 border border-[#222] transition-all duration-200 animate-fade-in">

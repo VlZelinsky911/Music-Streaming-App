@@ -1,13 +1,24 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import UserMenu from "../../header/UserMenu/UserMenu";
+import Image from "next/image";
 import useFetchUser from "../../../hooks/useFetchUser";
 import { supabase } from "../../../lib/supabaseClient";
+import UserMenu from "../../header/UserMenu/UserMenu";
+import { useRouter } from "next/navigation";
 
 export default function Greeting() {
-  const [greeting, setGreeting] = useState<String>("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [greeting, setGreeting] = useState<string>("");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [canGoBack, setCanGoBack] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCanGoBack(window.history.length > 1);
+    }
+  }, []);
 
   useFetchUser();
 
@@ -33,24 +44,35 @@ export default function Greeting() {
   }, []);
 
   return (
-    <div
-      className="hidden md:block w-full rounded-lg shadow-lg p-6 mb-6"
-      style={{
-        background:
-          "radial-gradient(circle at 30% 30%, #1ed760 0%, #1DB954 70%, #191414 100%)",
-      }}
-    >
-      <div className="hidden md:flex items-center justify-between">
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold text-white">{greeting}</h2>
-          <p className="text-gray-100 text-sm">
-            {isAuthenticated
-              ? "Great to see you again on Wawely!"
-              : "Sign up to enjoy your music streaming experience! 🎵"}
-          </p>
+    <div className="mb-5">
+      <div className="flex items-center justify-between mb-5 gap-4">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => canGoBack && router.back()}
+            disabled={!canGoBack}
+            className="cursor-pointer active:scale-95"
+          >
+            <Image src="/arrowBack.svg" width={25} height={25} alt="Back" />
+          </button>
+          <button
+            className="cursor-pointer active:scale-95"
+            onClick={() =>
+              typeof window !== "undefined" && window.history.forward()
+            }
+          >
+            <Image
+              src="/arrowForward.svg"
+              width={25}
+              height={25}
+              alt="Forward"
+            />
+          </button>
         </div>
+
         <UserMenu />
       </div>
+
+      <h2 className="text-2xl font-bold text-white">{greeting}</h2>
     </div>
   );
 }

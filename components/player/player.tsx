@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   Play,
   Pause,
@@ -25,12 +26,14 @@ export default function GlassPlayer() {
     <div
       className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] max-w-4xl z-50
   bg-white/10 backdrop-blur-md border border-white/10 rounded-lg shadow-xl
-  grid grid-cols-3 items-center px-4 py-2"
+  grid grid-cols-3 items-center px-4 py-2 hidden md:grid"
     >
       <div className="flex items-center gap-2 min-w-0 justify-self-start">
-        <img
+        <Image
           src="/covers/cover1.svg"
           alt="Shape of You"
+          width={40}
+          height={40}
           className="w-10 h-10 rounded-md"
         />
         <div className="min-w-0">
