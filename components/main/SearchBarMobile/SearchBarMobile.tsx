@@ -4,7 +4,7 @@ import { MdHistory } from 'react-icons/md';
 
 export default function SearchBarMobile() {
   return (
-    <div className="px-2 pt-2 pb-2">
+    <div className="p-4 bg-[#1E1E1E]/80 rounded-2xl border border-zinc-700">
 			<div className="flex items-center justify-between mb-4">
 				<h2 className="text-xl font-bold">Search</h2>
 				<Link href="/history">

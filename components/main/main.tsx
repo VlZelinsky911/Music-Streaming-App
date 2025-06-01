@@ -16,7 +16,7 @@ export default function Main() {
           <SearchBarMobile />
         </div>
 
-        <div className="flex-1 overflow-y-auto -pr-1 p-6 bg-neutral-900 rounded-2xl">
+        <div className="border-neutral-800 flex-1 overflow-y-auto -pr-1 p-6 bg-neutral-900 rounded-2xl ">
           <Greeting />
 
           <MixCard />

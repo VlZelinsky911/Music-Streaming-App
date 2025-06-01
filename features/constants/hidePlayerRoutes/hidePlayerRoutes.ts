@@ -8,4 +8,5 @@ export const hidePlayerRoutes = [
   "/sign-in/email-tutorial",
   "/legal/terms",
   "/legal/privacy",
+	"/profile/edit",
 ];
