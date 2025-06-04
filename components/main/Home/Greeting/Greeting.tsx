@@ -2,9 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import useFetchUser from "../../../hooks/useFetchUser";
-import { supabase } from "../../../lib/supabaseClient";
-import UserMenu from "../../header/UserMenu/UserMenu";
+import useFetchUser from "../../../../hooks/useFetchUser";
+import { supabase } from "../../../../lib/supabaseClient";
+import UserMenu from "../../../header/UserMenu/UserMenu";
 import { useRouter } from "next/navigation";
 
 export default function Greeting() {

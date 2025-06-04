@@ -2,8 +2,8 @@
 
 import React from "react";
 import Genres from "./Genres/Genres";
-import Sidebar from "../main/Sidebar/Sidebar";
-import SearchBar from "../header/SearchBar/SearchBar";
+import Sidebar from "../Home/Sidebar/Sidebar";
+import SearchBar from "../../header/SearchBar/SearchBar";
 
 export default function searchPage() {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { genres } from "../../../features/constants/genres/genres";
+import { genres } from "../../../../features/constants/genres/genres";
 import Image from "next/image";
 
 export default function Genres() {
@@ -12,8 +12,8 @@ export default function Genres() {
         >
           <h3 className="text-lg font-bold z-10">{title}</h3>
           <Image
-						width={24}
-						height={24}
+            width={24}
+            height={24}
             src={img}
             alt={title}
             className="w-24 h-24 absolute -bottom-1 -right-0"

@@ -17,16 +17,19 @@ import { RootState } from "@/store";
 
 export default function GlassPlayer() {
   const loading = useSelector((state: RootState) => state.auth.loading);
+	const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+
   const [isPlaying, setIsPlaying] = useState(true);
 
-  if (loading) {
+  if (loading || !isLoggedIn) {
     return null;
   }
+
   return (
     <div
       className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] max-w-4xl z-50
   bg-white/10 backdrop-blur-md border border-white/10 rounded-lg shadow-xl
-  grid grid-cols-3 items-center px-4 py-2 hidden md:grid"
+  grid grid-cols-3 items-center px-4 py-2 md:grid"
     >
       <div className="flex items-center gap-2 min-w-0 justify-self-start">
         <Image
