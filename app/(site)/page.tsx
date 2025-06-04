@@ -1,6 +1,5 @@
-import Main from "../../components/main/main";
+import Main from "../../components/main/Home/main";
 import Header from "../../components/header/header";
-
 
 export const metadata = {
   title: "Wavely",
