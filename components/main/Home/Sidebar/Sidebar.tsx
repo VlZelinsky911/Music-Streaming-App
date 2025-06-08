@@ -1,35 +1,37 @@
+'use client';
+
 import { Home, Search, Library, Plus, Heart } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const sidebarItems = [
   { icon: <Home size={20} />, label: "Home", href: "/" },
-  {
-    icon: <Search size={20} />,
-    label: "Search",
-    href: "/search",
-    active: true,
-  },
+  { icon: <Search size={20} />, label: "Search", href: "/search" },
   { icon: <Library size={20} />, label: "Your Library", href: "/library" },
 ];
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="hidden md:flex flex-col w-64 bg-neutral-900 text-white py-6 px-4 space-y-6 border-r border-neutral-800">
       <nav className="space-y-4">
-        
-        {sidebarItems.map(({ icon, label, href, active }) => (
-          <Link
-            key={label}
-            href={href}
-            className={`flex items-center gap-4 text-sm font-medium px-2 py-2 rounded hover:text-white hover:bg-neutral-800 transition ${
-              active ? "font-bold text-white" : "text-gray-400"
-            }`}
-          >
-            {icon}
-            <span>{label}</span>
-          </Link>
-        ))}
+        {sidebarItems.map(({ icon, label, href }) => {
+          const isActive = pathname === href;
+
+          return (
+            <Link
+              key={label}
+              href={href}
+              className={`flex items-center gap-4 text-sm font-medium px-2 py-2 rounded hover:text-white hover:bg-neutral-800 transition ${
+                isActive ? "font-bold text-white" : "text-gray-400"
+              }`}
+            >
+              {icon}
+              <span>{label}</span>
+            </Link>
+          );
+        })}
       </nav>
 
       <div className="border-t border-neutral-800 pt-4 space-y-4">
